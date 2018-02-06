@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wardmate.mapper.UserMapper">
+    <resultMap id="BASE_USER_COLUMN" type="com.wardmate.model.User">
+        <id column="ID" property="id"/>
+        <result column="NAME" property="name"/>
+        <result column="PASSWORD" property="password"/>
+        <result column="BIRTHDAY" property="birthday"/>
+        <result column="PHONE" property="phone"/>
+        <result column="EMAIL" property="email"/>
+    </resultMap>
+    <select id="getUserList" resultMap="BASE_USER_COLUMN">
+        SELECT * FROM USER ORDER BY NAME ASC LIMIT 10;
+    </select>
+    <select id="getUserNameAndPassword" resultMap="BASE_USER_COLUMN">
+        SELECT u.NAME,u.PASSWORD FROM USER u WHERE u.NAME=#{userName};
+    </select>
+    <insert id="registerNewUser" parameterType="com.wardmate.model.User" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO USER(NAME,PASSWORD,BIRTHDAY,PHONE,EMAIL) VALUES(#{name},#{password},#{birthday},#{phone},#{email});
+    </insert>
+    <select id="getUserByName" parameterType="string" resultMap="BASE_USER_COLUMN">
+        SELECT * FROM USER WHERE NAME = #{userName};
+    </select>
+    <update id="updateById" parameterType="com.wardmate.model.User">
+        UPDATE USER SET BIRTHDAY=#{birthday},PHONE=#{phone},EMAIL=#{email},GENDER=#{gender}
+        WHERE ID=#{id}
+    </update>
+</mapper>

@@ -1,0 +1,5 @@
+#submenu{background:rgba(0,128,128,0.4);}
+#submenu .menulink{padding: 1.5rem;}
+#submenu .menulink a{margin:0 1rem;font-size: 1.8rem;}
+#submenu .menulink .active{color:#666;}
+#submenu .avatar{height: 4.8rem;}

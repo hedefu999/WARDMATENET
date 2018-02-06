@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="WARN">
+    <properties>
+        <property name="LOG_HOME">${web:rootDir}/logs</property>
+        <property name="LOG_FILE_NAME">${date:dd-MM-yyyy}</property>
+    </properties>
+    <appenders>
+        <console name="console" target="SYSTEM_OUT">
+            <thresholdFilter level="ALL" onMatch="ACCEPT" onMismatch="DENY"/>
+            <patternLayout pattern="%d{HH:mm:ss.SSS} %-5level %class{36} %L %M : %msg%xEx%n"/>
+        </console>
+        <rollingFile name="infoFile" fileName="${LOG_HOME}/${LOG_FILE_NAME}info.log"
+                     filePattern="${LOG_HOME}/$${date:yyyy-MM}/${FILE_NAME}-%d{MM-dd-yyyy}-%i.info.log.gz">
+            <filters>
+                <thresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
+                <thresholdFilter level="ERROR" onMatch="DENY" onMismatch="NEUTRAL"/>
+            </filters>
+            <patternLayout pattern="%d{yyyy-MM-dd HH:mm:ss z} %-5level %class{36} %L %M - %msg%xEx%n"/>
+            <policies>
+                <timeBasedTriggeringPolicy interval="5"/>
+                <sizeBasedTriggeringPolicy size="20 MB"/>
+            </policies>
+            <!--限制文件个数-->
+            <defaultRolloverStrategy max="10"/>
+        </rollingFile>
+        <rollingFile name="errorFile" fileName="${LOG_HOME}/${LOG_FILE_NAME}error.log"
+                     filePattern="${LOG_HOME}/$${date:yyyy-MM}/${FILE_NAME}-%d{MM-dd-yyyy}-%i.error.log.gz">
+            <filters>
+                <thresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+            </filters>
+            <patternLayout pattern="%d{yyyy-MM-dd HH:mm:ss z} %-5level %class{36} %L %M - %msg%xEx%n"/>
+            <policies>
+                <timeBasedTriggeringPolicy interval="10"/>
+                <sizeBasedTriggeringPolicy size="20 MB"/>
+            </policies>
+            <defaultRolloverStrategy max="5"/>
+        </rollingFile>
+    </appenders>
+    <!--off > fatal > error > warn > info > debug> trace > all-->
+    <loggers>
+        <logger name="log4j.logger.org.mybatis" level="TRACE" additivity="false">
+            <appender-ref ref="console"/>
+        </logger>
+        <logger name="com.wardmate.mapper" level="TRACE" additivity="false">
+            <appender-ref ref="console"/>
+        </logger>
+
+        <!--存储所有spring日志信息-->
+        <!--<logger name="log4j.logger.org.springframework" level="INFO" additivity="false">-->
+            <!--<appender-ref ref="console"/>-->
+        <!--</logger>-->
+
+        <root level="INFO">
+            <appender-ref ref="console"/>
+            <!--开发阶段不使用日志文件-->
+            <!--<appender-ref ref="infoFile"/>-->
+            <!--<appender-ref ref="errorFile"/>-->
+        </root>
+    </loggers>
+</configuration>
