@@ -1,6 +1,6 @@
 # WARDMATENET 病友网
 
-![logo](https://simimg.com/i/vcsl6)
+![logo](https://s1.ax2x.com/2018/02/07/vcyjn.png)
 
 
 基于循证医学理念设计的患者社区、知识、疾病管理平台
