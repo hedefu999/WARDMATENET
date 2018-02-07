@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=utf-8" language="java" %>
 <html>
 <head>
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
@@ -57,7 +57,7 @@
                 <c:set var="LOGIN_USER_NAME" scope="session" value="${sessionScope.LOGIN_USER_NAME}"/>
                 <c:choose>
                     <c:when test="${LOGIN_USER_NAME != null}">
-                        <h3>您好！&emsp;<a href="/welcome/gotoUserProfile/${sessionScope.loggedUser.id}">${LOGIN_USER_NAME}</a>&emsp;<small><a href="/logout">登出</a></small></h3>
+                        <h3>您好！&emsp;<a href="/welcome/gotoUserProfile/${sessionScope.LOGIN_USER.id}">${LOGIN_USER_NAME}</a>&emsp;<small><a href="/logout">登出</a></small></h3>
                     </c:when>
                     <c:when test="${LOGIN_USER_NAME == null}">
                         <a href="/logon">注册</a>&emsp;&emsp;

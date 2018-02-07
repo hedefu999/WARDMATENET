@@ -12,13 +12,16 @@ body{background-color: #eee;}
 /*.rightsection{margin:0;padding:0;height:100%;}*/
 /*#theory .header img{height:15em;}*/
 /*#theory .header p{font-size: 2rem;text-indent: 2em;}*/
-.locator{background-color: #fff;margin: 1rem 0;padding: 1rem;}
+#locator{height: 10rem;background-color: #fff;margin: 1rem 0;padding: 1rem;}
+#glossary{clear: both;}
 #glossary .padding{background: #eee;padding:0;}
 #glossary .cardFooter a{}
 #glossary table td{padding-top:0;}
-#glossary .card{background: white;box-shadow: 2px 2px 3px #ccc;margin:0.5rem;padding:1rem;}
+/*设置gutter=0，width 32% 左侧宽度 1% 可以实现完美三栏居中*/
+#glossary .card{width:32%; background: white;box-shadow: 2px 2px 3px #ccc;margin-left:1%;margin-bottom:0.5rem;padding:1rem;}
 #glossary .card h4{font-weight: bold;}
 #glossary .card hr{margin: 0;height: 2px;background: #008080;}
 #glossary .card p{text-indent: 2em;}
+#getMoreCard{width: 100%;background: white;box-shadow: 2px 2px 3px #ccc;margin-bottom:0.5rem;padding:1rem;text-align: center;}
 /*#about .container{background: white;box-shadow: 2px 2px 3px #ccc;margin: 1rem;padding:1rem;}*/
 /*#about .logo-instruction p{text-indent: 2em;font-size: 1.5rem;}*/

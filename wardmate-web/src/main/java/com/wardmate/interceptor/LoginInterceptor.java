@@ -15,7 +15,6 @@ public class LoginInterceptor implements HandlerInterceptor {
         request.setCharacterEncoding("utf-8");
         HttpSession session = request.getSession();
         if(session.getAttribute(WebAppConstant.LOGIN_SESSION_HEAD) != null){
-            System.out.println("interceptor pass");
             return true;
         }else {
             String url = request.getRequestURI();//获取上个页面的url

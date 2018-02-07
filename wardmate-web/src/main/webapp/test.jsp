@@ -9,22 +9,27 @@
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="Cache" content="no-cache">
     <title>test</title>
+    <style type="text/css">
+        .grid-item { width: 20%; }
+        .grid-item--width2 { width: 40%;}
+    </style>
 </head>
 <body>
-<span class="timeLeft">4</span>秒后<a class="targetURL" href="/login">跳转</a>
+<div class="grid">
+    <div class="grid-item">123</div>
+    <div class="grid-item grid-item--width2">234</div>
+    <div class="grid-item">456</div>
+</div>
 
 <script type="text/javascript" src="/assets/jquery/jquery-3.2.1.min.js"></script>
+<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.js"></script>
 <script type="text/javascript">
     $(function () {
-        var count = 3;
-        setInterval(function () {
-            if(count > 0){
-                $('.timeLeft').html(count--);
-            }else {
-                window.location = $('.targetURL').attr('href');
-            }
-        },1000);
-
+        $('.grid').masonry({
+            // options
+            itemSelector: '.grid-item',
+            columnWidth: 200
+        });
     });
 </script>
 </body>

@@ -34,11 +34,6 @@ public class UserProfileController {
     @ResponseBody
     @RequestMapping("/updateProfile")
     public String saveChanges(@RequestBody UserAndProfile userAndProfile){
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         boolean checkIdentity = userService.checkUserInfo(userAndProfile.getName(),userAndProfile.getPassword(),
                 ServiceConstant.CHECK_USER_PASSWORD_SIMPLE);
         if (checkIdentity){

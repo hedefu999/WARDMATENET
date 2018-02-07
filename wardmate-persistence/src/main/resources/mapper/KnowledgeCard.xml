@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wardmate.mapper.KnowledgeCardMapper">
+    <resultMap id="BASE_COLUMN" type="com.wardmate.model.KnowledgeCard">
+        <id column="ID" property="id"/>
+        <result column="TITLE" property="title"/>
+        <result column="CONTENT" property="content"/>
+        <result column="IMAGE" property="image"/>
+        <result column="UPDATE_TIME" property="updateTime"/>
+    </resultMap>
+    <select id="queryTargetPage" resultMap="BASE_COLUMN" parameterType="java.util.HashMap">
+        SELECT TITLE,CONTENT,IMAGE
+        FROM GLOSSARY
+        ORDER BY UPDATE_TIME DESC
+        LIMIT #{skipRecords},#{pageSize}
+    </select>
+    <select id="queryRowCount" resultType="java.lang.Integer" parameterType="java.util.HashMap">
+        SELECT COUNT(1)
+        FROM GLOSSARY
+--         复杂查询，临时禁用
+        <!--<where>-->
+            <!--<if test="keyword != null and keyword != ''">-->
+                <!--TITLE LIKE #{keyword}-->
+            <!--</if>-->
+        <!--</where>-->
+    </select>
+</mapper>
