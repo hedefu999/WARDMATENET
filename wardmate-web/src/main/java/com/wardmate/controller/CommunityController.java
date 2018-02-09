@@ -10,4 +10,12 @@ public class CommunityController {
     public String community(){
         return "/community/community";
     }
+    @RequestMapping("/playground")
+    public String playground(){
+        return "/community/playground";
+    }
+    @RequestMapping("/test")
+    public String test(){
+        return "/community/test";
+    }
 }

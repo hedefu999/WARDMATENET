@@ -12,26 +12,26 @@
     <meta http-equiv="Cache" content="no-cache"/>
     <link rel="stylesheet" href="/assets/awesomefonts/css/font-awesome.min.css"/>
     <link rel="stylesheet" href="/assets/bootstrap/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/assets/layer/theme/default/layer.css"/>
     <link rel="stylesheet" href="/css/common/rem.css"/>
     <link rel="stylesheet" href="/css/common/navbar.css"/>
     <link rel="stylesheet" href="/css/common/submenu.css"/>
     <link rel="stylesheet" href="/css/community/community.css"/>
 </head>
 <body>
-<%--html引用路径使用basepath，图片 css资源使用/等引用在部署时找不到（版本问题），jsp不受此影响--%>
 <%@include file="/WEB-INF/common/navbar.jsp"%>
+
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-offset-1 col-lg-offset-1">
         <div id="submenu">
-
             <div class="row">
                 <div class="col-xs-12 col-sm-8 col-md-8 col menulink">
-                    <a class="active" href="snschats"><i class="fa fa-group" aria-hidden="true">&nbsp;病友聊天</i></a>
-                    <a class=" " href="snshall"><i class="fa fa-hand-stop-o" aria-hidden="true">&nbsp;病友大厅</i></a>
+                    <a class="active" href="#"><i class="fa fa-group" aria-hidden="true">&nbsp;病友聊天</i></a>
+                    <a class=" " href="/community/playground"><i class="fa fa-hand-stop-o" aria-hidden="true">&nbsp;病友大厅</i></a>
                     <a class=" " href="#"><i class="fa fa-list" aria-hidden="true">&nbsp;病友论坛</i></a>
                     <a class=" " href="#"><i class="fa fa-star-o" aria-hidden="true">&nbsp;病友动态</i></a>
                 </div>
-                <div class="col-xs-0 col-sm-4 col-md-4 col"><div class="userentrance"><a href="#"> <img class="avatar" src="/image/community/avatar.png"><span class="userName">${requestScope.loggedUser.userName}</span></a><a href="#">&emsp;<i class="fa fa-vcard-o" aria-hidden="true">&nbsp;账户设置</i> </a></div></div>
+                <div class="col-xs-0 col-sm-4 col-md-4 col"><div class="userentrance"><a href="#"> <img class="avatar" src="/image/community/avatar.png"><span class="userName">${sessionScope.LOGIN_USER_NAME}</span></a><a href="#">&emsp;<i class="fa fa-vcard-o" aria-hidden="true">&nbsp;账户设置</i> </a></div></div>
             </div>
         </div><!-- submenu -->
         <div id="mainbody" class="row">
@@ -149,8 +149,14 @@
 </div>
 <script src="/assets/jquery/jquery-3.2.1.min.js" type="text/javascript"></script>
 <script src="/assets/bootstrap/bootstrap.min.js" type="text/javascript"></script>
-<script src="/assets/neteaseim/NIM_Web_SDK_v4.1.0.js" type="text/javascript"></script>
-<script src="/assets/neteaseim/nimconfig.js" type="text/javascript"></script>
+<script src="/assets/layer/layer.js" type="text/javascript"></script>
+<script src="/assets/sockjs.min.js" type="text/javascript"></script>
+
+<%--<script src="/assets/neteaseim/NIM_Web_SDK_v4.1.0.js" type="text/javascript"></script>--%>
+<%--<script src="/assets/neteaseim/nimconfig.js" type="text/javascript"></script>--%>
 <%--<script type="text/javascript" src="/javascript/community/community.js"></script>--%>
+<script>
+
+</script>
 </body>
 </html>

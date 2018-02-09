@@ -17,10 +17,10 @@
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="Cache" content="no-cache">
     <title>病友大厅</title>
-    <link rel="stylesheet" href="framework/awesomefonts/css/font-awesome.min.css"/>
-    <link rel="stylesheet" href="framework/bootstrap/bootstrap.min.css"/>
-    <link rel="stylesheet" href="css/rem.css"/>
-    <link rel="stylesheet" href="css/navbar.css"/>
+    <link rel="stylesheet" href="/assets/awesomefonts/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="/assets/bootstrap/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/common/rem.css"/>
+    <link rel="stylesheet" href="/css/common/navbar.css"/>
     <style type="text/css">
         #vicemenu{background:rgba(0,128,128,0.4);}
         #vicemenu .btn{margin: 0.8rem 0;padding:0.5rem;}
@@ -81,8 +81,8 @@
 
 <script src="/assets/jquery/jquery-3.2.1.min.js" type="text/javascript"></script>
 <script src="/assets/bootstrap/bootstrap.min.js" type="text/javascript"></script>
-<script src="/assets/neteaseim/NIM_Web_SDK_v4.1.0.js" type="text/javascript"></script>
-<script src="/assets/neteaseim/nimconfig.js" type="text/javascript"></script>
+<%--<script src="/assets/neteaseim/NIM_Web_SDK_v4.1.0.js" type="text/javascript"></script>--%>
+<%--<script src="/assets/neteaseim/nimconfig.js" type="text/javascript"></script>--%>
 <script type="text/javascript">
 //    var nim = SDK.NIM.getInstance({
 //        appKey:mainCon.appKey,
