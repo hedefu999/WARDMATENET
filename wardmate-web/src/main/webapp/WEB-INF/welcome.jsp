@@ -20,7 +20,7 @@
 <nav id="navbar" class="navbar navbar-default navabr-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a id="navbar-logo" class="navbar-brand" href="index.jsp"><img src="/image/welcome/logo.png" alt="病友网"></a>
+            <a id="navbar-logo" class="navbar-brand" href="/welcome"><img src="/image/welcome/logo.png" alt="病友网"></a>
             <a href="#" class="navbar-brand">病 友 网</a>
             <!--移动设备上显示-->
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">

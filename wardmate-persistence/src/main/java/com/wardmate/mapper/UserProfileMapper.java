@@ -8,4 +8,5 @@ public interface UserProfileMapper {
     void saveNewProfile(UserProfile profile);
     UserAndProfile getUserInformation(Integer userId);
     void updateByUserId(UserProfile profile);
+    String getGroupIdsByUserId(Integer userId);
 }

@@ -62,13 +62,17 @@ public class IndexController {
     }
 
     @RequestMapping("/welcome/userLogin")
-    public String checkUserInformation(@RequestParam("validationCode") String validationCode, User userToLogin, @ModelAttribute("preparedUser") User preparedUser,
-                                       ModelMap modelMap, HttpSession session){
+    public String checkUserInformation(@RequestParam("validationCode") String validationCode,
+                                       ModelMap modelMap, HttpSession session, User userToLogin){
+        //使用@ModelAttribute("preparedUser") User preparedUser 不能从model中获取名为preparedUser的Object
+        // 会被表单提交数据填充导致 userToLogin === preparedUser 之前能正常工作的...
+        User preparedUser = (User) modelMap.get("preparedUser");
         if(validationCode != null && validationCode.equals(session.getAttribute(WebAppConstant.VALIDATION_CODE))){
             if (preparedUser != null &&
                     userToLogin.getPassword().equals(preparedUser.getPassword())){
                 //登录成功，session存入用户信息，返回登录前的页面
                 session.setAttribute(WebAppConstant.LOGIN_SESSION_HEAD,preparedUser.getName());
+                session.setAttribute(WebAppConstant.LOGIN_SESSION_ID,preparedUser.getId());
                 session.setAttribute(WebAppConstant.LOGIN_SESSION_BODY,preparedUser);
                 String lastURL = (String) session.getAttribute(WebAppConstant.URL_INTERCEPTED);
                 if(lastURL == null || lastURL.equals("")) lastURL="/welcome";
@@ -107,6 +111,7 @@ public class IndexController {
 
     @RequestMapping("/logout")
     public String logout(HttpSession session){
+        session.removeAttribute(WebAppConstant.LOGIN_SESSION_ID);
         session.removeAttribute(WebAppConstant.LOGIN_SESSION_HEAD);
         session.removeAttribute(WebAppConstant.LOGIN_SESSION_BODY);
         return "/welcome";
@@ -138,20 +143,18 @@ public class IndexController {
         stream.close();
     }
 
-    @ModelAttribute("preparedUser")
+    @ModelAttribute(value = "preparedUser")
     public User prepareUser(@RequestParam(name = "name", required = false) String userName){
-        User user;
+        User preparedUser = new User();
         if ( userName != null && !userName.equals("")){
             //注册时此处user为null，但不影响注册方法获取POST提交的user属性
-            //@ModelAttribute在其他controller方法前执行，可用于补全model属性，依据页面传入的id或name等字段
-            //对于登录方法可以很好的工作，使用@ModelAttribute()获取
-            //对于注册方法，因数据库中尚无记录，此处初始化会导致preparedUser为null,在验证码出错，表单回显时产生bug
-            //注册出错回显时要将preparedUser替换为表单提交的内容
-            user = userService.getUserByName(userName);
-        }else {
-            user = new User();
+            //@ModelAttribute在其他controller方法前执行，此处用于根据request中包含的参数name补全User对象的属性
+            User user = userService.getUserByName(userName);
+            if(user != null){
+                preparedUser = user;
+            }
         }
-        return user;
+        return preparedUser;
     }
 
 }

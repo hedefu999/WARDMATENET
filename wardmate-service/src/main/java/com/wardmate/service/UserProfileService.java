@@ -1,8 +1,8 @@
 package com.wardmate.service;
 
-import com.wardmate.daoInterface.IUserDao;
-import com.wardmate.daoInterface.IUserProfileDao;
 import com.wardmate.dto.UserAndProfile;
+import com.wardmate.mapper.UserMapper;
+import com.wardmate.mapper.UserProfileMapper;
 import com.wardmate.model.User;
 import com.wardmate.model.UserProfile;
 import com.wardmate.serviceInterface.IUserProfileService;
@@ -12,9 +12,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserProfileService implements IUserProfileService {
     @Autowired
-    private IUserDao userDao;
+    private UserMapper userMapper;
     @Autowired
-    private IUserProfileDao userProfileDao;
+    private UserProfileMapper profileMapper;
 
 
     @Override
@@ -36,7 +36,7 @@ public class UserProfileService implements IUserProfileService {
         profile.setNickName(userAndProfile.getNickName());
         profile.setWeixinAccount(userAndProfile.getWeixinAccount());
 
-        userDao.updateById(user);
-        userProfileDao.updateByUserId(profile);
+        userMapper.updateById(user);
+        profileMapper.updateByUserId(profile);
     }
 }
