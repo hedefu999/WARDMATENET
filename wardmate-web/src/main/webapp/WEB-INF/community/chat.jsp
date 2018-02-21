@@ -137,11 +137,6 @@
 <script src="/assets/layer/layer.js" type="text/javascript"></script>
 <%--<script src="/assets/sockjs.min.js" type="text/javascript"></script>--%>
 <script src="/javascript/utils/formateddate.js" type="text/javascript"></script>
-
-<%--<script src="/assets/neteaseim/NIM_Web_SDK_v4.1.0.js" type="text/javascript"></script>--%>
-<%--<script src="/assets/neteaseim/nimconfig.js" type="text/javascript"></script>--%>
-<%--<script type="text/javascript" src="/javascript/community/chat_neteaseIM.js"></script>--%>
-
 <script type="text/javascript">
     var websocketServer='ws://'+location.host+'${pageContext.request.contextPath}'+'/instantMessageServer';
     var currentUserId = ${sessionScope.LOGIN_USER_ID};

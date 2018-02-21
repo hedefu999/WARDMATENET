@@ -29,7 +29,8 @@
         #navbar .navbar-brand-title{font-size: 3rem;}
         #colorbar {height: 0.3rem; margin-top: 0; border-top: 0;background: #c4e17f;border-radius: 0.3rem;
             background-image: linear-gradient(to right, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);}
-        #form-up .myforminput{border-radius: 6px;}
+        .signupform{height: 100%;background: url("/image/common/bg1.png") no-repeat fixed top ;background-size: cover;}
+        .signupform .formContainer{background-color: #fff;padding: 6rem 1rem;border: 0.5rem #ccc solid;border-radius: 1rem;margin-top: 10%;}
         form{width: 96%;margin: auto;}
         /*下面两个是日期选择器的大小设置*/
         .datepicker table{width: 100%;height: 100%;}
@@ -50,10 +51,10 @@
         </div>
     </div> <!--container-->
 </nav>
-<hr id="colorbar">
 <div class="signupform" id="signupform">
+    <hr id="colorbar">
     <div class="row">
-        <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+        <div class="col-xs-12 col-sm-8 col-md-8 col-sm-offset-2 col-md-offset-2 formContainer">
             <form:form id="logonform" role="form" data-toggle="validator" action="/welcome/createUser" method="POST" modelAttribute="preparedUser">
                 <span style="color: red;">${requestScope.message}</span>
                 <div class="row">

@@ -90,7 +90,7 @@ public class IndexController {
     @RequestMapping("/welcome/createUser")
     public String createAccount(@RequestParam("validationCode") String validationCode, User user,
                                 ModelMap modelMap, HttpSession session){
-        if(validationCode != null && validationCode.equals(session.getAttribute("validationCode"))){
+        if(validationCode != null && validationCode.equals(session.getAttribute(WebAppConstant.VALIDATION_CODE))){
             //用户注册时后台可见明文密码
             String passwordToStore = MD5.getMD5String(user.getName()+MD5.getMD5String(user.getPassword()));
             user.setPassword(passwordToStore);

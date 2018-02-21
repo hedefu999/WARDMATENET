@@ -8,15 +8,21 @@ var websocketService = null;
 establishConnection();
 
 $('#chatpaneinput .sendMessage').click(function () {
-    var message = {
-        from:currentUserId,
-        to:$('#chatpane').attr('recipientId'),
-        message:$('#chatpaneinput textarea').val(),
-        type:$('#chatpane').attr('messageType'),
-        dateTime:new Date().format('yyyy-MM-dd HH:mm:ss')
-    };
-    console.log(JSON.stringify(message));
-    sendMessage(message);
+    var messageContent = $('#chatpaneinput textarea').val();
+    if(messageContent != ''){
+        var message = {
+            from:currentUserId,
+            to:$('#chatpane').attr('recipientId'),
+            message:messageContent,
+            type:$('#chatpane').attr('messageType'),
+            dateTime:new Date().format('yyyy-MM-dd HH:mm:ss')
+        };
+        $('#chatpaneinput textarea').val('');
+        sendMessage(message);
+    }else {
+        layer.msg('请输入聊天内容');
+    }
+
 });
 function establishConnection() {
     //变量websocketServer定义在jsp中
@@ -41,7 +47,6 @@ function shutdown() {
     }
 }
 function sendMessage(jsonMessage) {
-    console.log(jsonMessage);
     if (!checkConnection()){ establishConnection(); }
     websocketService.send(JSON.stringify(jsonMessage));
 }
@@ -50,7 +55,6 @@ function checkConnection() {
     else {return false}
 }
 function parseMessage(message) {
-    console.log("接受到消息："+message);
     message = JSON.parse(message);
     if(message.type == 'P2P'){
 

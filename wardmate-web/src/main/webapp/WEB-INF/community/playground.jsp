@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%--
   Created by IntelliJ IDEA.
   User: hedefu
@@ -25,8 +26,9 @@
     <link rel="stylesheet" href="/css/common/submenu.css"/>
     <style type="text/css">
         #patientsGroups .groupWrapper{padding: 0.5rem;}
-        #patientsGroups .patientGroup{height: 16rem;background-color: #eee;border: 1px solid #ddd;border-radius: 4px;padding-left: 2rem;}
+        #patientsGroups .patientGroup{height: 16rem;background-color: #eee;border: 1px solid #ddd;border-radius: 4px;padding-left: 2rem;position: relative;}
         #patientsGroups .patientGroup h3{display: inline-block;margin-left: 2rem;}
+        #patientsGroups .patientGroup button{position: absolute;top:85%;left: 89%;transform: translate(-50%,-50%);}
     </style>
 </head>
 <body>
@@ -42,7 +44,14 @@
                         <img src="${imGroup.avatarURL}">
                         <h3><i class="fa fa-medkit">&nbsp;&nbsp;${imGroup.name}</i></h3><br>
                         <span>${imGroup.desc}</span>
-                        <a class="btn btn-primary" href="#">已加入</a>
+                        <c:choose>
+                            <c:when test="${fn:contains(requestScope.myGroupIds,imGroup.id)}">
+                                <button class="btn btn-primary" imGroupId="${imGroup.id}" status="joined">已加入</button>
+                            </c:when>
+                            <c:when test="${! fn:contains(requestScope.myGroupIds,imGroup.id)}">
+                                <button class="btn btn-default" imGroupId="${imGroup.id}" status="tourist">加入</button>
+                            </c:when>
+                        </c:choose>
                     </div>
                 </div>
             </c:forEach>
@@ -63,33 +72,35 @@
     <a class="btn btn-default" href="#">刷新</a>
 </div>
 
-
-
-
-
-
-
 <script src="/assets/jquery/jquery-3.2.1.min.js" type="text/javascript"></script>
 <script src="/assets/bootstrap/bootstrap.min.js" type="text/javascript"></script>
-<%--<script src="/assets/neteaseim/NIM_Web_SDK_v4.1.0.js" type="text/javascript"></script>--%>
-<%--<script src="/assets/neteaseim/nimconfig.js" type="text/javascript"></script>--%>
+<script src="/assets/layer/layer.js" type="text/javascript"></script>
 <script type="text/javascript">
-//    var nim = SDK.NIM.getInstance({
-//        appKey:mainCon.appKey,
-//        account:mainCon.account,
-//        token:mainCon.token,
-//        db:false,//不开启数据库
-//        onconnect:onConnect,
-//        onerror:onError,
-//    });
-//     function onConnect(obj) {
-//         $('#teamsList').html(obj.ip);
-//     }
-//    function onError(error) {
-//
-//    }
+    var currentUserId = ${sessionScope.LOGIN_USER_ID};
     var colheight = $('#vicemenu .col').height();
     $('#vicemenu .userentrance .avatar').css("height",colheight);
+    $('#patientsGroups .patientGroup button').click(function () {
+        var groupId = $(this).attr('imGroupId');
+        var _this = this;
+        $(_this).attr("disabled","disabled");
+        var layerloader = layer.load(2);
+        $.post(
+            '/community/joinOrLeaveGroup',
+            {currentUserId:currentUserId,groupId:groupId},
+            function (result) {
+                var resultJson = JSON.parse(result);
+                setTimeout(function () {
+                    layer.close(layerloader);
+                    layer.msg(resultJson.message);
+                    if(resultJson.operation == 'join'){
+                        $(_this).html('已加入').removeClass().addClass('btn btn-primary');
+                    }else if(resultJson.operation == 'leave'){
+                        $(_this).html('加群').removeClass().addClass('btn btn-default');
+                    }
+                    $(_this).removeAttr("disabled");
+                },300);
+        });
+    });
 </script>
 </body>
 </html>
