@@ -86,16 +86,6 @@
 <script type="text/javascript" src="/assets/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
     $(function () {
-        // $.ajax({
-        //     url : '/userProfile/testAjax',
-        //     type : 'post',
-        //     contentType : "application/json;charset=utf-8",
-        //     data :fromDataJsonObj,
-        //     success:function (result) {
-        //         console.log(result);
-        //     }
-        // });
-
         var radioGroupInPersonal = $('#details .personal input[type="radio"]');
         $('#details .personaltitle .update').click(function () {
             var currentFunction = $(this).attr('currentFunction');

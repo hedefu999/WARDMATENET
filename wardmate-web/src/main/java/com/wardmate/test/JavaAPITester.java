@@ -1,5 +1,6 @@
 package com.wardmate.test;
 
+import com.google.common.base.Function;
 import com.google.common.base.Joiner;
 import com.google.common.base.Predicate;
 import com.google.common.base.Splitter;
@@ -85,7 +86,7 @@ public class JavaAPITester {
         Integer groupId = 2;
 
         //1.
-        groupIdList.remove(groupId.toString());
+        //groupIdList.remove(groupId.toString());
         //2.
         //groupIdList.removeIf(item -> item.contains("2"));
 
@@ -108,15 +109,41 @@ public class JavaAPITester {
         //    return false;
         //});
         //3.
-        //Iterator<String> iterator = groupIdList.iterator();
-        //while (iterator.hasNext()){
-        //    if(iterator.next().equals(groupId.toString())){
-        //        iterator.remove();
-        //    }
-        //}
+        Iterator<String> iterator = groupIdList.iterator();
+        while (iterator.hasNext()){
+            if(iterator.next().equals(groupId.toString())){
+                iterator.remove();
+            }
+        }
 
         String idString = Joiner.on(",").skipNulls().join(groupIdList);
         System.out.println(groupIdList);
+    }
+    @Test
+    public void testRemove() {
+        String strs = "str1,str2,str3,str4";
+        String[] strArray = {"str1","str2","str3","str4"};
+        //String[] strArray = Arrays.a
+
+        //java.lang.UnsupportedOperationException
+        //at java.util.Collections$UnmodifiableCollection$1.remove
+        List<String> list = new ArrayList<>(Splitter.on(",").omitEmptyStrings().splitToList(strs));
+
+        System.out.println("list.size()=" + list.size());
+        Iterator<String> iterator = list.iterator();
+        while (iterator.hasNext()){
+            iterator.next();
+            iterator.remove();
+        }
+        System.out.println("after remove:list.size()=" + list.size());
+    }
+    @Test
+    public void testGuava(){
+        String input = "apple.banana,,orange,,.";
+        List<String> result = Splitter.onPattern("[.|,]")
+                .omitEmptyStrings()
+                .splitToList(input);
+        System.out.println(result);
     }
     @Test
     public void testArrayList3(){

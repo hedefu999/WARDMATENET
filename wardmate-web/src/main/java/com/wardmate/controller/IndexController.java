@@ -124,6 +124,7 @@ public class IndexController {
         // 方案：将全部字段传入前台，再进行接收，不允许修改的使用隐藏域，允许用户传空值进行删除
         UserAndProfile userAndProfile = userService.getUserProfileAndSettings(userId);
         userAndProfile.setPassword("");
+        System.out.println(userAndProfile);
         modelMap.put("genders",genderMap);
         modelMap.put("userAndProfile",userAndProfile);
         return "/common/userprofile";

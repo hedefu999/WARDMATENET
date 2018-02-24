@@ -43,36 +43,4 @@ public class UserProfileController {
             return "false";
         }
     }
-
-    @ResponseBody
-    @RequestMapping(value="/testAjax",method = RequestMethod.POST)
-    public Map<String, FeedbackMessage> testAjax(@RequestBody List<User> users){
-        logger.info(users);
-        FeedbackMessage message = new FeedbackMessage();
-        message.setTitle("finished");
-        message.setContent("test ajax");
-        Map<String,FeedbackMessage> messageMap = Maps.newHashMap();
-        messageMap.put("first",message);
-        message = new FeedbackMessage();
-        message.setTitle("producing");
-        message.setContent("something unexpected happened");
-        messageMap.put("second",message);
-        return messageMap;
-    }
-    @ResponseBody
-    @RequestMapping("/testAjax2")
-    public List<FeedbackMessage> testAjax2(@RequestBody Map<String,User> userMap){
-        logger.info(userMap);
-        List<FeedbackMessage> messages = Lists.newArrayList();
-        FeedbackMessage message = new FeedbackMessage();
-        message.setTitle("finished");
-        message.setContent("test ajax");
-        messages.add(message);
-        message = new FeedbackMessage();
-        message.setTitle("producing");
-        message.setContent("something unexpected happened");
-        messages.add(message);
-        return messages;
-    }
-
 }

@@ -45,9 +45,6 @@
                                     <img src="${IMGroup.avatarURL}" class="img-rounded"><h4>${IMGroup.name}</h4><div class="middle"></div><span class="badge">0</span><span class="last">2017-02-13</span>
                                 </div></a>
                             </c:forEach>
-                            <a href="#" class="list-group-item"><div>
-                                <img src="/image/community/avatar02.jpg" class="img-rounded"><h4>testGroup</h4><div class="middle">neweast message</div><span class="last">latest time</span>
-                            </div></a>
                         </div>
                     </div>
                     <div class="tab-pane fade" id="navfriends">
@@ -122,7 +119,7 @@
                         <textarea class="form-control chatcontents" rows="5" placeholder="请输入聊天内容[Ueditor设计]"></textarea>
                     </div>
                 </div>
-                <div class="notepane">
+                <div class="notepane" style="display: none;">
                     <h2>糖尿病的日常护理</h2>
                     <p>忌食高甜度食品，一日三餐不要吃得太饱，戒烟戒酒，多运动</p>
                     <p>口服二甲双胍一般可降低过高血糖，部分人群需要关注低血糖风险</p>
@@ -136,7 +133,7 @@
 <script src="/assets/bootstrap/bootstrap.min.js" type="text/javascript"></script>
 <script src="/assets/layer/layer.js" type="text/javascript"></script>
 <%--<script src="/assets/sockjs.min.js" type="text/javascript"></script>--%>
-<script src="/javascript/utils/formateddate.js" type="text/javascript"></script>
+<script src="/javascript/utils/formatdate.js" type="text/javascript"></script>
 <script type="text/javascript">
     var websocketServer='ws://'+location.host+'${pageContext.request.contextPath}'+'/instantMessageServer';
     var currentUserId = ${sessionScope.LOGIN_USER_ID};
