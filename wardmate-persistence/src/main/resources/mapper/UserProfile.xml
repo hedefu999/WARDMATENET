@@ -8,6 +8,7 @@
         <result column="NICK_NAME" property="nickName"/>
         <result column="AVATAR_URL" property="avatarURL"/>
         <result column="WEIXIN_ACCOUNT" property="weixinAccount"/>
+        <result column="GROUP_ID" property="groupIds"/>
     </resultMap>
     <select id="getUserProfileByUserId" parameterType="integer" resultMap="BASE_USERPROFILE_COLUMN">
         SELECT * FROM USERPROFILE WHERE USER_ID = #{userId}
@@ -41,5 +42,13 @@
         UPDATE USERPROFILE
         SET NICK_NAME=#{nickName},WEIXIN_ACCOUNT=#{weixinAccount}
         WHERE USER_ID=#{userId}
+    </update>
+    <select id="getGroupIdsByUserId" parameterType="integer" resultType="java.lang.String">
+        SELECT GROUP_ID FROM USERPROFILE WHERE USER_ID = #{userId};
+    </select>
+    <update id="updateGroupIds">
+        UPDATE USERPROFILE
+        SET GROUP_ID = #{groupIds}
+        WHERE USER_ID = #{userId}
     </update>
 </mapper>

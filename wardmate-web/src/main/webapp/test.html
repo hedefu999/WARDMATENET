@@ -1,140 +1,85 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>layer测试</title>
-    <meta name="renderer" content="webkit">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="../assets/layui/layui.css"/>
-    <style type="text/css">
-        .frame-col{background-color: #5bc0de;}
-    </style>
+    <title>Calculator App Using Spring 4 WebSocket</title>
+    <script src="/assets/sockjs.min.js"></script>
+    <script src="/assets/webstomp.min.js"></script>
+    <script type="text/javascript">
+        var stompClient = null;
+        function setConnected(connected) {
+            document.getElementById('connect').disabled = connected;
+            document.getElementById('disconnect').disabled = !connected;
+            document.getElementById('calculationDiv').style.visibility = connected ? 'visible' : 'hidden';
+            document.getElementById('calResponse').innerHTML = '';
+        }
+        function connect() {
+            var socket = new SockJS('/hello');
+            stompClient = webstomp.over(socket);
+            stompClient.connect({}, function(frame) {
+                setConnected(true);
+                // console.log('Connected: ' + frame);
+
+                stompClient.subscribe('/topic/showResult', function(result){
+                    console.log("received message: "+result.body);
+                    // showResult(JSON.parse(result.body));
+                });
+            });
+        }
+        function disconnect() {
+            stompClient.disconnect();
+            setConnected(false);
+            console.log("Disconnected");
+        }
+        function sendNum() {
+            var num1 = document.getElementById('num1').value;
+            var num2 = document.getElementById('num2').value;
+            stompClient.send("/app/hello", {}, 'hello websocket');//JSON.stringify({  })
+        }
+        function showResult(message) {
+            var response = document.getElementById('calResponse');
+            var p = document.createElement('p');
+            p.style.wordWrap = 'break-word';
+            p.appendChild(document.createTextNode(message));
+            response.appendChild(p);
+        }
+    </script>
 </head>
 <body>
-使用layui搭建前端界面
-<div class="layui-fluid">
-    <div class="layui-row">
-        <div class="frame-col layui-col-xs4">
-            123
-        </div>
-        <div class="frame-col layui-col-xs-offset1 layui-col-xs7">
-            345
-        </div>
+<noscript><h2>Enable Java script and reload this page to run Websocket Demo</h2></noscript>
+<h1>Calculator App Using Spring 4 WebSocket</h1>
+<div>
+    <div>
+        <button id="connect" onclick="connect();">Connect</button>
+        <button id="disconnect" disabled="disabled" onclick="disconnect();">Disconnect</button><br/><br/>
     </div>
+    <div id="calculationDiv">
+        <label>Number One:</label><input type="text" id="num1" /><br/>
+        <label>Number Two:</label><input type="text" id="num2" /><br/><br/>
+        <button id="sendNum" onclick="sendNum();">Send to Add</button>
+        <p id="calResponse"></p>
+    </div>
+    <div class="me"><table border="0">
+            <tr><td colspan="2" style="text-align: right;">linsiqin</td>
+                <td rowspan="2"><img class="avatar img-circle" src="/image/community/avatar07.jpg" alt="..."></td></tr>
+            <tr><td><div class="rmessage">今天医生开了个盐酸二甲双瓜片，大家有用的吗？效果怎样？</div></td>
+                <td><div class="rightarrow"></div></td></tr>
+    </table></div>
+    <div class="others"><table border="0">
+        <tr><td rowspan="2"><img class="avatar img-circle" src="/image/community/avatar05.jpg" alt="..."></td>
+            <td colspan="2" style="text-align: right;">linsiqin</td>
+            </tr>
+        <tr><td><div class="leftarrow"></div></td>
+            <td><div class="lmessage">二甲双胍是2型糖尿病患者的一线治疗用药，如无禁忌症且能耐受药物者，二甲双胍应贯穿全程治疗。</div></td></tr>
+    </table></div>
+
+    <div class="me"><table border="0">
+        <tr><td rowspan="2"><div class="rmessage">今天医生开了个盐酸二甲双瓜片，大家有用的吗？效果怎样？</div></td>
+            <td rowspan="2"><div class="rightarrow"></div></td>
+            <td><img class="avatar img-circle" src="/image/community/avatar07.jpg" alt="..."></td></tr>
+    </table></div>
+    <div class="others"><table border="0">
+        <tr><td><img class="avatar img-circle" src="/image/community/avatar05.jpg" alt="..."></td><td rowspan="2"><div class="leftarrow"></div></td><td rowspan="2"><div class="lmessage">二甲双胍是2型糖尿病患者的一线治疗用药，如无禁忌症且能耐受药物者，二甲双胍应贯穿全程治疗。</div></td></tr>
+    </table></div>
 </div>
-
-<div class="layui-layout layui-layout-admin">
-    <div class="layui-header">
-        <div class="layui-logo">病友社区</div>
-        <!-- 头部区域（可配合layui已有的水平导航） -->
-        <ul class="layui-nav layui-layout-left">
-            <li class="layui-nav-item"><a href="">控制台</a></li>
-            <li class="layui-nav-item"><a href="">商品管理</a></li>
-            <li class="layui-nav-item"><a href="">用户</a></li>
-            <li class="layui-nav-item">
-                <a href="javascript:;">其它系统</a>
-                <dl class="layui-nav-child">
-                    <dd><a href="">邮件管理</a></dd>
-                    <dd><a href="">消息管理</a></dd>
-                    <dd><a href="">授权管理</a></dd>
-                </dl>
-            </li>
-        </ul>
-        <ul class="layui-nav layui-layout-right">
-            <li class="layui-nav-item">
-                <a href="javascript:;">
-                    <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
-                    已登录用户
-                </a>
-                <dl class="layui-nav-child">
-                    <dd><a href="">基本资料</a></dd>
-                    <dd><a href="">安全设置</a></dd>
-                </dl>
-            </li>
-            <li class="layui-nav-item"><a href="">退出</a></li>
-        </ul>
-    </div>
-
-    <div class="layui-side layui-bg-black">
-        <div class="layui-side-scroll">
-            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-            <ul class="layui-nav layui-nav-tree"  lay-filter="test">
-                <li class="layui-nav-item layui-nav-itemed">
-                    <a class="" href="javascript:;">所有商品</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">列表一</a></dd>
-                        <dd><a href="javascript:;">列表二</a></dd>
-                        <dd><a href="javascript:;">列表三</a></dd>
-                        <dd><a href="">超链接</a></dd>
-                    </dl>
-                </li>
-                <li class="layui-nav-item">
-                    <a href="javascript:;">解决方案</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">列表一</a></dd>
-                        <dd><a href="javascript:;">列表二</a></dd>
-                        <dd><a href="">超链接</a></dd>
-                    </dl>
-                </li>
-                <li class="layui-nav-item"><a href="">云市场</a></li>
-                <li class="layui-nav-item"><a href="">发布商品</a></li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="layui-body">
-        <!-- 内容主体区域 -->
-        <div style="padding: 15px;">内容主体区域</div>
-    </div>
-
-    <div class="layui-footer">
-        <!-- 底部固定区域 -->
-        © layui.com - 底部固定区域
-    </div>
-</div>
-
-
-
-
-
-
-
-
-
-
-<script type="text/javascript" src="../assets/jquery/jquery-3.2.1.min.js"></script>
-<script type="text/javascript" src="../assets/layui/layui.all.js"></script>
-<script type="text/javascript">
-    layui.use(['layer', 'form','element'], function(){
-        var layer = layui.layer,form = layui.form;
-
-
-        // layer.open({
-        //     content: 'test'
-        //     ,btn: ['按钮一', '按钮二', '按钮三']
-        //     ,yes: function(index, layero){
-        //         //按钮【按钮一】的回调
-        //     }
-        //     ,btn2: function(index, layero){
-        //         //按钮【按钮二】的回调
-        //
-        //         //return false 开启该代码可禁止点击该按钮关闭
-        //     }
-        //     ,btn3: function(index, layero){
-        //         //按钮【按钮三】的回调
-        //
-        //         //return false 开启该代码可禁止点击该按钮关闭
-        //     }
-        //     ,cancel: function(){
-        //         //右上角关闭回调
-        //
-        //         //return false 开启该代码可禁止点击该按钮关闭
-        //     }
-        // });
-    });
-
-
-</script>
 </body>
 </html>

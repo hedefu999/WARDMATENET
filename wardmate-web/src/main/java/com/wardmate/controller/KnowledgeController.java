@@ -39,6 +39,7 @@ public class KnowledgeController {
 
     //定义分页、单次加载知识卡片的数量
     private static final int pageSize = 6;
+
     @RequestMapping("/queryKnowledgeCard")
     public String queryKnowledgeCard(KnowledgeCardQueryConditions conditions, ModelMap modelMap){
         HashMap<String,Object> conditionMap = Maps.newHashMap();
@@ -67,6 +68,7 @@ public class KnowledgeController {
         conditionMap.put("keyword",conditions.getKeyword());
         return knowledgeService.queryCardForJson(conditionMap);
     }
+
     @ModelAttribute("queryConditions")
     public KnowledgeCardQueryConditions prepareConditions(KnowledgeCardQueryConditions conditions){
         if (conditions == null){

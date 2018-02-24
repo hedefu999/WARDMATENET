@@ -1,0 +1,43 @@
+.colorgraph {margin:0;height: 5px;border-top: 0;background: #c4e17f;border-radius: 5px;
+    background-image: -webkit-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+    background-image: -moz-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+    background-image: -o-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+    background-image: linear-gradient(to right, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+}
+#searchBar{clear: both;padding: 0.5rem;background: #eee;border-bottom: 1px solid #ddd;box-shadow: 2px 2px 2px #ccc;}
+#searchBar div{text-align:center;}
+#searchBar span{color:#008080;font-size:2.5rem;}
+#searchBar select{border: none;background: none;}
+
+/*网站证据分类标签*/
+.evidenceList .itemborder{border-bottom: 1px solid #ccc;padding:0 1rem 1rem 1rem;border-left: 4px solid #008080;}
+.evidenceList .itemtype{padding:0.1rem 0.8rem;float:right;border-radius:0.5rem;background: #008080;}
+.evidenceList .evidenceborder{border-left-color: #008080;}
+.evidenceList .evidence{background: #008080;}
+.evidenceList .guideborder{border-left-color: #c4e17f;}
+.evidenceList .guide{background: #c4e17f;}
+.evidenceList .reviewborder{border-left-color: #efad4d;}
+.evidenceList .review{background: #efad4d;}
+.evidenceList .wikiborder{border-left-color: #5bb85d;}
+.evidenceList .wiki{background: #5bb85d;}
+.evidenceList .healthtechborder{border-left-color: #418bca;}
+.evidenceList .healthtech{background: #418bca;}
+.evidenceList .medicineborder{border-left-color: #25ca00;}
+.evidenceList .medicine{background: #25ca00;}
+
+#searchResults{clear: both;margin: 1rem;}
+#searchResults .screener{padding:0 1rem;background: #eee;}
+#searchResults .screener .panel-title{color: #428bca;width: 10rem;}
+#searchResults .screener .panel-collapse label{display: block;}
+
+#searchResults .evidenceList .itemfoot{margin-top:1rem; }
+#searchResults .evidenceList .itemfoot .date{float: right;margin-right:2rem; }
+
+#searchresults .pagination{float: right;}
+
+
+#instruction{width: 80%;margin: 1rem auto 1rem auto;background: #eee;}
+#instruction img{ width: 70%;margin: 1rem; margin: 20% auto;}
+#instruction h3{color: #468cc8;font-size: 3rem;}
+#instruction p{text-indent: 4rem;}
+

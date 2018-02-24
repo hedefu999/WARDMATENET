@@ -20,7 +20,7 @@
 <nav id="navbar" class="navbar navbar-default navabr-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a id="navbar-logo" class="navbar-brand" href="index.jsp"><img src="/image/welcome/logo.png" alt="病友网"></a>
+            <a id="navbar-logo" class="navbar-brand" href="/welcome"><img src="/image/welcome/logo.png" alt="病友网"></a>
             <a href="#" class="navbar-brand">病 友 网</a>
             <!--移动设备上显示-->
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
@@ -82,16 +82,16 @@
 <div id="entryButton" class="row">
     <div class="wrapper" style="float: top;">
     <div class="col-xm-6 col-sm-6 col-md-3 col">
-        <a href="/knowledge"><img class="img-responsive" src="/image/welcome/index10.png"><span>循证医学</span></a>
+        <a href="/knowledge/index"><img class="img-responsive" src="/image/welcome/index10.png"><span>循证医学</span></a>
     </div>
     <div class="col-xm-6 col-sm-6 col-md-3 col">
-        <a href="/evidence"><img class="img-responsive" src="/image/welcome/index09.png"><span>医学证据</span></a>
+        <a href="/evidence/index"><img class="img-responsive" src="/image/welcome/index09.png"><span>医学证据</span></a>
     </div>
     <div class="col-xm-6 col-sm-6 col-md-3 col">
-        <a href="/community"><img class="img-responsive" src="/image/welcome/index11.png"><span>病友社区</span></a>
+        <a href="/community/index"><img class="img-responsive" src="/image/welcome/index11.png"><span>病友社区</span></a>
     </div>
     <div class="col-xm-6 col-sm-6 col-md-3 col">
-        <a href="/management"><img class="img-responsive" src="/image/welcome/index08.png"><span>我的健康</span></a>
+        <a href="/management/index"><img class="img-responsive" src="/image/welcome/index08.png"><span>我的健康</span></a>
     </div>
     </div>
 </div>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wardmate.mapper.EvidenceMapper">
+    <resultMap id="BASE_COLUMN" type="com.wardmate.model.Evidence">
+        <id column="ID" property="id"/>
+        <result column="TYPE" property="type"/>
+        <result column="TITLE" property="title"/>
+        <result column="AUTHOR" property="author"/>
+        <result column="SOURCE" property="source"/>
+        <result column="UPDATE_TIME" property="updateTime"/>
+        <result column="KEYWORDS" property="keywords"/>
+        <result column="CONTENT_LINK" property="contentLink"/>
+        <result column="SUMMARY" property="summary"/>
+        <result column="CLASS_NAME" property="className"/>
+    </resultMap>
+
+    <select id="search" parameterType="com.wardmate.vo.EvidenceQueryObject" resultMap="BASE_COLUMN">
+        SELECT * FROM EVIDENCE WHERE 1=1
+        <if test="type != null">
+            AND TYPE LIKE '%${type}%'
+        </if>
+        <if test="title != null">
+            AND TITLE LIKE CONCAT(CONCAT('%',#{title}),'%')
+        </if>
+        <if test="author != null">
+            AND AUTHOR LIKE CONCAT()'%${author}%'
+        </if>
+        <if test="source != null">
+            AND SOURCE LIKE '%${source}%'
+        </if>
+        <if test="keywords != null">
+            AND KEYWORDS LIKE '%${keywords}%'
+        </if>
+        <if test="summary != null">
+            AND SUMMARY LIKE '%${summary}%'
+        </if>
+        <choose>
+            <when test="timeASC">
+                ORDER BY UPDATE_TIME ASC
+            </when>
+            <otherwise>
+                ORDER BY UPDATE_TIME DESC
+            </otherwise>
+        </choose>
+    </select>
+
+</mapper>

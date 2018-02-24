@@ -31,6 +31,8 @@
         #form-up .myforminput{border-radius: 6px;}
         form{width: 96%;margin: auto;}
         .validationImgWrapper{text-align: center;}
+        .signinform{height: 100%;background: url("/image/common/bg2.jpg") no-repeat fixed top;background-size: cover;}
+        .signinform .formContainer{background-color: #fff;padding: 6rem 1rem;border: 0.5rem #ccc solid;border-radius: 1rem;}
         #validationRow{height: 5rem;}
         #validationRow .col{height: 5rem;}
         #validationRow .col>div{height: 5rem;line-height: 5rem;margin: 0;}
@@ -46,10 +48,10 @@
         </div>
     </div> <!--container-->
 </nav>
-<hr id="colorbar">
 <div class="signinform">
+    <hr id="colorbar">
     <div class="row">
-        <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+        <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3 formContainer">
             <form:form id="loginForm" role="form" data-toggle="validator" action="/welcome/userLogin" method="POST" namespace="/" modelAttribute="preparedUser">
                 <span style="color: red;">${message}</span>
                 <div class="row">

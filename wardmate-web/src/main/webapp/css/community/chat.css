@@ -2,11 +2,12 @@
 #friendstabhead li a{border-radius: 0;}
 #friendstabbody .form-control{border-radius: 0;}
 #friendstabbody .input-group .btn{border-radius: 0;}
-#navgroup a{padding-top: 0;}
-#navgroup img{max-height:50px;max-height:50px;float: left;margin-right: 1rem;}
-#navgroup .badge{float: right;margin-top:-50px;}
+
+#navgroup a{padding-top: 0;height: 7rem;}
+#navgroup img{max-height:50px;float: left;margin-right: 1rem;}
+#navgroup .badge{float: right;margin-top: -6%;}
 #navgroup .middle{width:12em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-#navgroup .last{float: right;margin-top:-20px;}
+#navgroup .last{float: right;}
 
 #navfriends a{padding-top: 0;}
 #navfriends img{max-height:50px;max-height:50px;float:left;margin-right: 1rem;}
@@ -17,10 +18,12 @@
 #favornotes a{padding-top: 0;}
 #favornotes img{float: left;margin-right: 1rem;}
 
+#chatpane{display: none;}
+
 #chatpanetitle{padding-top: 1rem; height: 5rem;border:1px solid #ccc;border-bottom:0;border-radius:4px 4px 0 0;}
 #chatpanetitle h4{margin-left: 3rem;float: left;}
 #chatpanetitle a{float: right;margin-right: 1rem; }
-#chatpanetitle button{float: right;margin: 1rem;}
+#chatpanetitle button{float: right;margin:0 1rem;}
 
 #chatpanebody{width:100%;height:40rem;background: #fff;overflow: auto;border:1px solid #ccc;border-bottom:0;}
 #chatpanebody .others{clear:both;float: left;margin:0.2rem;}

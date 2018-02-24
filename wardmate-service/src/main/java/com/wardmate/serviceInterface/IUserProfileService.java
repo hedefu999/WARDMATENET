@@ -7,4 +7,6 @@ public interface IUserProfileService {
     void update(UserProfile userProfile);
 
     void updateUserInformation(UserAndProfile userAndProfile);
+    Integer joinOrLeaveGroup(Integer currentUserId, Integer groupId);
+    String getMyChatGroup(Integer currentUserId);
 }

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wardmate.mapper.P2PChatMapper">
+    <resultMap id="BASE_COLUMN" type="com.wardmate.model.InstantMessage">
+        <id column="ID" property="id"/>
+        <result column="FROM_ID" property="from"/>
+        <result column="TO_ID" property="to"/>
+        <result column="MESSAGE" property="message"/>
+        <result column="DATETIME" property="dateTime"/>
+    </resultMap>
+    <insert id="saveP2pChat" parameterType="com.wardmate.model.InstantMessage">
+        INSERT INTO GROUPCHAT(FROM_ID,TO_ID,MESSAGE,DATETIME)
+        VALUES(#{from},#{to},#{message},#{dateTime});
+    </insert>
+</mapper>

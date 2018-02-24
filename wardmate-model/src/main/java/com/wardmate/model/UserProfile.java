@@ -8,6 +8,7 @@ public class UserProfile implements Serializable{
     private String nickName;
     private String avatarURL;
     private String weixinAccount;
+    private String groupIds;
 
     public Integer getId() {
         return id;
@@ -49,6 +50,14 @@ public class UserProfile implements Serializable{
         this.weixinAccount = weixinAccount;
     }
 
+    public String getGroupIds() {
+        return groupIds;
+    }
+
+    public void setGroupIds(String groupIds) {
+        this.groupIds = groupIds;
+    }
+
     @Override
     public String toString() {
         return "UserProfile{" +
@@ -57,6 +66,7 @@ public class UserProfile implements Serializable{
                 ", nickName='" + nickName + '\'' +
                 ", avatarURL='" + avatarURL + '\'' +
                 ", weixinAccount='" + weixinAccount + '\'' +
+                ", groupIds='" + groupIds + '\'' +
                 '}';
     }
 }

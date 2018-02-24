@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%--
   Created by IntelliJ IDEA.
   User: hedefu
@@ -21,43 +23,40 @@
     <link rel="stylesheet" href="/assets/bootstrap/bootstrap.min.css"/>
     <link rel="stylesheet" href="/css/common/rem.css"/>
     <link rel="stylesheet" href="/css/common/navbar.css"/>
+    <link rel="stylesheet" href="/css/common/submenu.css"/>
     <style type="text/css">
-        #vicemenu{background:rgba(0,128,128,0.4);}
-        #vicemenu .btn{margin: 0.8rem 0;padding:0.5rem;}
-        #vicemenu .btn-primary{background-color: rgba(0,136,204,0.5);}
-        #vicemenu .btn-default{background-color: rgba(255,255,255,0.5);}
-        #vicemenu .col{text-align: right;position: relative;padding: 0;text-align: center;}
-        #vicemenu .col .badge{position: absolute;}
-        #vicemenu .userentrance{margin-right: 2rem;}
-        #vicemenu .avatar{margin-right: 1rem;}
+        #patientsGroups .groupWrapper{padding: 0.5rem;}
+        #patientsGroups .patientGroup{height: 16rem;background-color: #eee;border: 1px solid #ddd;border-radius: 4px;padding-left: 2rem;position: relative;}
+        #patientsGroups .patientGroup h3{display: inline-block;margin-left: 2rem;}
+        #patientsGroups .patientGroup button{position: absolute;top:85%;left: 89%;transform: translate(-50%,-50%);}
     </style>
 </head>
 <body>
 <%@include file="/WEB-INF/common/navbar.jsp"%>
 <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-offset-1 col-lg-offset-1">
-    <div id="vicemenu">
-        <div class="row">
-            <div class="col-xs-3 col-sm-2 col-md-2 col"><a class="btn btn-primary " href="snshall"><i class="fa fa-hand-stop-o" aria-hidden="true">&nbsp;病友大厅</i></a></div>
-            <div class="col-xs-3 col-sm-2 col-md-2 col"><a class="btn btn-default " href="snschats"><i class="fa fa-group" aria-hidden="true">&nbsp;病友聊天</i></a><span class="badge">2</span> </div>
-            <div class="col-xs-3 col-sm-2 col-md-2 col"><a class="btn btn-default " href="#"><i class="fa fa-list" aria-hidden="true">&nbsp;病友论坛</i></a></div>
-            <div class="col-xs-3 col-sm-2 col-md-2 col"><a class="btn btn-default " href="#"><i class="fa fa-star-o" aria-hidden="true">&nbsp;病友动态</i></a></div>
-            <div class="col-xs-0 col-sm-4 col-md-4 col"><div class="userentrance"><a href="#"> <img class="avatar" src="/image/community/avatar.png"><span class="userName"><s:property value="#session.LoggedInUser"/></span></a><a href="#">&emsp;<i class="fa fa-vcard-o" aria-hidden="true">&nbsp;账户设置</i> </a></div></div>
-        </div>
-    </div><!-- vicemenu -->
+    <%@include file="/WEB-INF/community/submenu.jsp"%>
     <div class="row">
-        <div class="col-sm-5">
+        <div id="patientsGroups" class="col-sm-8">
             <h2>病友群</h2>
-            <div>
-                <h3><i class="fa fa-medkit">&nbsp;&nbsp;糖尿病患者群</i></h3>
-                <span>各位好，欢迎加入患者大家庭，大家可以再这里畅所欲言，交流自身患病经历和体验。严禁发布广告及一切夸大、虚假信息！违者踢出</span>
-                <a class="btn btn-primary" href="#">已加入</a>
-            </div>
-            <div>
-                <h3><i class="fa fa-stethoscope">&nbsp;&nbsp;高血压患者群</i></h3>
-                <a class="btn btn-default" href="#">加入</a>
-            </div>
+            <c:forEach items="${imGroups}" var="imGroup" varStatus="index">
+                <div class="col-sm-6 groupWrapper">
+                    <div class="patientGroup">
+                        <img src="${imGroup.avatarURL}">
+                        <h3><i class="fa fa-medkit">&nbsp;&nbsp;${imGroup.name}</i></h3><br>
+                        <span>${imGroup.desc}</span>
+                        <c:choose>
+                            <c:when test="${fn:contains(requestScope.myGroupIds,imGroup.id)}">
+                                <button class="btn btn-primary" imGroupId="${imGroup.id}" status="joined">已加入</button>
+                            </c:when>
+                            <c:when test="${! fn:contains(requestScope.myGroupIds,imGroup.id)}">
+                                <button class="btn btn-default" imGroupId="${imGroup.id}" status="tourist">加入</button>
+                            </c:when>
+                        </c:choose>
+                    </div>
+                </div>
+            </c:forEach>
         </div>
-        <div class="col-sm-7">
+        <div class="col-sm-4">
             <h2>相似病情患者</h2>
             <div>
                 <span>用户A</span><hr>
@@ -73,33 +72,35 @@
     <a class="btn btn-default" href="#">刷新</a>
 </div>
 
-
-
-
-
-
-
 <script src="/assets/jquery/jquery-3.2.1.min.js" type="text/javascript"></script>
 <script src="/assets/bootstrap/bootstrap.min.js" type="text/javascript"></script>
-<%--<script src="/assets/neteaseim/NIM_Web_SDK_v4.1.0.js" type="text/javascript"></script>--%>
-<%--<script src="/assets/neteaseim/nimconfig.js" type="text/javascript"></script>--%>
+<script src="/assets/layer/layer.js" type="text/javascript"></script>
 <script type="text/javascript">
-//    var nim = SDK.NIM.getInstance({
-//        appKey:mainCon.appKey,
-//        account:mainCon.account,
-//        token:mainCon.token,
-//        db:false,//不开启数据库
-//        onconnect:onConnect,
-//        onerror:onError,
-//    });
-//     function onConnect(obj) {
-//         $('#teamsList').html(obj.ip);
-//     }
-//    function onError(error) {
-//
-//    }
+    var currentUserId = ${sessionScope.LOGIN_USER_ID};
     var colheight = $('#vicemenu .col').height();
     $('#vicemenu .userentrance .avatar').css("height",colheight);
+    $('#patientsGroups .patientGroup button').click(function () {
+        var groupId = $(this).attr('imGroupId');
+        var _this = this;
+        $(_this).attr("disabled","disabled");
+        var layerloader = layer.load(2);
+        $.post(
+            '/community/joinOrLeaveGroup',
+            {currentUserId:currentUserId,groupId:groupId},
+            function (result) {
+                var resultJson = JSON.parse(result);
+                setTimeout(function () {
+                    layer.close(layerloader);
+                    layer.msg(resultJson.message);
+                    if(resultJson.operation == 'join'){
+                        $(_this).html('已加入').removeClass().addClass('btn btn-primary');
+                    }else if(resultJson.operation == 'leave'){
+                        $(_this).html('加群').removeClass().addClass('btn btn-default');
+                    }
+                    $(_this).removeAttr("disabled");
+                },300);
+        });
+    });
 </script>
 </body>
 </html>
