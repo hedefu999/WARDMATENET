@@ -28,12 +28,16 @@
         <span>病友网循证搜索&emsp;</span>
     </div>
     <div class="col-xs-7 col-sm-5">
-        <form:form id="search" action="/evidence/queryEvidence" method="get" modelAttribute="queryObject">
+        <form:form id="search" action="/evidence/queryEvidence" method="get" modelAttribute="simpleQueryObject">
             <div class="input-group">
                 <div class="input-group-addon btn btn-default" style="padding: 0;">
-                    <form:select path="type" items="${evidenceType}"/>
+                    <form:select path="fieldCode">
+                        <c:forEach items="${searchFieldMap}" var="field">
+                            <form:option value="${field.key}" label="${field.value}"/>
+                        </c:forEach>
+                    </form:select>
                 </div>
-                <form:input path="keywords" class="form-control keywords"/>
+                <form:input path="searchTerm" class="form-control keywords"/>
                 <div class="btn btn-primary input-group-addon" onclick="submit()">
                     <i class="fa fa-search">&emsp;搜   索</i>
                 </div>
@@ -44,41 +48,16 @@
 <div id="searchResults">
     <div class="col-xs-12 col-sm-3 col-md-3 screener">
         <h4>分类筛选:</h4>
-        <form:form action="" modelAttribute="queryObject">
+        <form:form action="" modelAttribute="">
         <div class="panel panel-default">
             <div class="panel-heading"><h4 class="panel-title">
                 <a href="#typeScreener" data-toggle="collapse" class="">证据类型&emsp;&emsp;<i class="fa fa-arrow-down"></i></a>
             </h4></div>
             <div id="typeScreener" class="panel-collapse collapse in"><div class="panel-body">
                 <div class="checkbox-group">
-                    <form:checkboxes items="evidenceType">
-                        <form:checkbox path="type"
-                    </form:checkboxes>
-                    <label class=""><input type="checkbox" value="option1" checked><strong>&nbsp;临床指南</strong></label>
-                    <label class=""><input type="checkbox" value="option1" checked><strong>&nbsp;系统评价</strong></label>
-                    <label class=""><input type="checkbox" value="option1"><strong>&nbsp;临床试验</strong></label>
-                    <label class=""><input type="checkbox" value="option2" checked="checked"><strong>&nbsp;药物信息&emsp;<i class="fa fa-sort-desc"></i></strong>
-                    </label>
-                    <label class="">&emsp;<input type="checkbox" value="option2"><strong>&nbsp;有效性证据</strong></label>
-                    <label class="">&emsp;<input type="checkbox" value="option2"><strong>&nbsp;安全性证据</strong></label>
-                    <label class="">&emsp;<input type="checkbox" value="option2"><strong>&nbsp;经济性证据</strong></label>
-                    <label class=""><input type="checkbox" value="option3"><strong>&nbsp;患者手册</strong></label>
-                    <label class=""><input type="checkbox" value="option3"><strong>&nbsp;卫生技术评估</strong></label>
-                    <label class=""><input type="checkbox" value="option3"><strong>&nbsp;医药卫生政策</strong></label>
-                    <label class=""><input type="checkbox" value="option3"><strong>&nbsp;多媒体资料</strong></label>
+                    <form:checkboxes items="evidenceTypes" path=""/>
+                    <%--<label class=""><input type="checkbox" value="option1" checked><strong>&nbsp;临床指南</strong></label>--%>
                 </div>
-            </div></div>
-        </div>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    <a href="#sourceScreener" data-toggle="collapse" class="collapsed">证据来源&emsp;&emsp;<i class="fa fa-arrow-down"></i></a>
-                </h4>
-            </div>
-            <div id="sourceScreener" class="panel-collapse collapse in"><div class="panel-body">
-                <label class=""><input type="checkbox" value="option1"><strong>&nbsp;出版图书</strong></label>
-                <label class=""><input type="checkbox" value="option1"><strong>&nbsp;期刊杂志</strong></label>
-                <label class=""><input type="checkbox" value="option1"><strong>&nbsp;政策文件</strong></label>
             </div></div>
         </div>
         <div class="panel panel-default">
@@ -87,6 +66,9 @@
             </h4></div>
             <div id="updateTimeScreener" class="panel-collapse collapse"><div class="panel-body">
                 <div class="radio-group">
+                    <form:checkboxes path="years" items="yearMap">
+                        <form:checkbox
+                    </form:checkboxes>
                     <label class=""><input type="radio" value="option3" name="myradio"><strong> — 2017 — </strong></label>
                     <label class=""><input type="radio" value="option1" name="myradio"><strong> — 近3年 — </strong></label>
                     <label class=""><input type="radio" value="option2" name="myradio" checked="checked"><strong> — 近5年 — </strong></label>

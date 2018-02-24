@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface IEvidenceService {
     List<Evidence> queryEvidence(EvidenceQueryObject queryObject);
+    List<String> getEvidenceTypes(EvidenceQueryObject queryObject);
 }

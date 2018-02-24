@@ -1,4 +1,5 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: hedefu
@@ -32,7 +33,7 @@
         #searchTool .title{font-size: 5rem;font-weight: lighter; text-align: center; margin:auto;color: #008080;}
         #searchTool .vicetitle{width:80%;font-size:3rem;font-weight:lighter;text-align:right;margin:1rem;color: #008080;}
         #searchTool .body{width:80%;margin: 5rem auto 8rem auto;padding:1rem 2rem;}
-        select{border: none;background: none;}
+        select{height: 4rem;margin:0 2rem;font-size: 2rem;border: none;background: none;}
     </style>
 </head>
 <body>
@@ -44,16 +45,19 @@
         <p class="vicetitle">— — 您可信赖的证据库</p>
     </div>
     <%--表单标签会影响布局，将form放到最外层不会破坏布局--%>
-    <form:form id="search" action="/evidence/queryEvidence" method="get" modelAttribute="queryObject">
+    <form:form id="search" action="/evidence/queryEvidence" method="get" modelAttribute="simpleQueryObject">
         <div class="input-group body">
             <div class="input-group-addon btn btn-default" style="padding: 0;">
-                <form:select path="type" items="${evidenceType}"/>
+                <form:select path="fieldCode">
+                    <c:forEach items="${searchFieldMap}" var="field">
+                        <form:option value="${field.key}" label="${field.value}"/>
+                    </c:forEach>
+                </form:select>
             </div>
-            <form:input path="keywords" class="form-control input-lg keywords"/>
-            <div class="btn btn-primary input-group-addon" onclick="submit()">
+            <form:input path="searchTerm" class="form-control input-lg keywords"/>
+            <div class="btn btn-primary input-group-addon" onclick="submit()" style="font-size: 2rem;">
                 <i class="fa fa-search">&emsp;搜   索</i>
             </div>
-
         </div>
     </form:form>
 

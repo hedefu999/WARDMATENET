@@ -17,23 +17,17 @@
 
     <select id="search" parameterType="com.wardmate.vo.EvidenceQueryObject" resultMap="BASE_COLUMN">
         SELECT * FROM EVIDENCE WHERE 1=1
-        <if test="type != null">
-            AND TYPE LIKE '%${type}%'
-        </if>
         <if test="title != null">
-            AND TITLE LIKE CONCAT(CONCAT('%',#{title}),'%')
-        </if>
-        <if test="author != null">
-            AND AUTHOR LIKE CONCAT()'%${author}%'
-        </if>
-        <if test="source != null">
-            AND SOURCE LIKE '%${source}%'
+            AND TITLE LIKE '%${title}%'
         </if>
         <if test="keywords != null">
             AND KEYWORDS LIKE '%${keywords}%'
         </if>
         <if test="summary != null">
             AND SUMMARY LIKE '%${summary}%'
+        </if>
+        <if test="years">
+            AND UPDATE_TIME > NOW() - 000${years}0000000000;
         </if>
         <choose>
             <when test="timeASC">
@@ -43,6 +37,18 @@
                 ORDER BY UPDATE_TIME DESC
             </otherwise>
         </choose>
+    </select>
+    <select id="getTypesWithSpecifiedConditions" parameterType="com.wardmate.vo.EvidenceQueryObject" resultType="java.lang.String">
+        SELECT DISTINCT(TYPE) FROM EVIDENCE WHERE 1=1
+        <if test="title != null">
+            AND TITLE LIKE '%${title}%'
+        </if>
+        <if test="keywords != null">
+            AND KEYWORDS LIKE '%${keywords}%'
+        </if>
+        <if test="summary != null">
+            AND SUMMARY LIKE '%${summary}%'
+        </if>
     </select>
 
 </mapper>

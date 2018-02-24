@@ -21,4 +21,9 @@ public class EvidenceService implements IEvidenceService {
     public List<Evidence> queryEvidence(EvidenceQueryObject queryObject) {
         return evidenceMapper.search(queryObject);
     }
+
+    @Override
+    public List<String> getEvidenceTypes(EvidenceQueryObject queryObject) {
+        return evidenceMapper.getTypesWithSpecifiedConditions(queryObject);
+    }
 }
