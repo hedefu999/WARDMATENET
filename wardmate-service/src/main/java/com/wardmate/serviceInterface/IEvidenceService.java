@@ -8,4 +8,6 @@ import java.util.List;
 public interface IEvidenceService {
     List<Evidence> queryEvidence(EvidenceQueryObject queryObject);
     List<String> getEvidenceTypes(EvidenceQueryObject queryObject);
+    Integer getTotalResultCount(EvidenceQueryObject queryObject);
+    Integer getTotalPageCount(EvidenceQueryObject queryObject);
 }

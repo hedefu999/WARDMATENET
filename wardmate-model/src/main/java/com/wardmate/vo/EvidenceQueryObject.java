@@ -1,16 +1,19 @@
 package com.wardmate.vo;
 
+import java.util.List;
+
 public class EvidenceQueryObject {
     //简单检索支持的检索字段
     private String title;
     private String keywords;
     private String summary;
     //进一步筛选
-    private String type;
-    //private String author;
-    //private String source;
+    private List<String> types;
     private boolean timeASC = false;
-    private Integer years;
+    private Integer years = 0;
+    private Integer pageNo = 1;
+    private Integer offset;
+    private Integer countOnePage = 12;
 
     public String getTitle() {
         return title;
@@ -36,12 +39,12 @@ public class EvidenceQueryObject {
         this.summary = summary;
     }
 
-    public String getType() {
-        return type;
+    public List<String> getTypes() {
+        return types;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setTypes(List<String> types) {
+        this.types = types;
     }
 
     public boolean isTimeASC() {
@@ -58,5 +61,41 @@ public class EvidenceQueryObject {
 
     public void setYears(Integer years) {
         this.years = years;
+    }
+
+    public Integer getPageNo() {
+        return pageNo;
+    }
+
+    public void setPageNo(Integer pageNo) {
+        this.pageNo = pageNo;
+    }
+
+    public Integer getOffset() {
+        return (this.pageNo - 1) * this.countOnePage;
+    }
+
+    public void setOffset(Integer offset) {
+        this.offset = offset;
+    }
+
+    public Integer getCountOnePage() {
+        return countOnePage;
+    }
+
+    public void setCountOnePage(Integer countOnePage) {
+        this.countOnePage = countOnePage;
+    }
+
+    @Override
+    public String toString() {
+        return "EvidenceQueryObject{" +
+                "title='" + title + '\'' +
+                ", keywords='" + keywords + '\'' +
+                ", summary='" + summary + '\'' +
+                ", type='" + types + '\'' +
+                ", timeASC=" + timeASC +
+                ", years=" + years +
+                '}';
     }
 }

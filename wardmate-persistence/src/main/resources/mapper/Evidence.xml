@@ -15,19 +15,26 @@
         <result column="CLASS_NAME" property="className"/>
     </resultMap>
 
+    <!--使用占位符#{}可以防止SQL注入，但占位符会产生引号''，解决办法是使用CONCAT函数。-->
     <select id="search" parameterType="com.wardmate.vo.EvidenceQueryObject" resultMap="BASE_COLUMN">
         SELECT * FROM EVIDENCE WHERE 1=1
-        <if test="title != null">
-            AND TITLE LIKE '%${title}%'
+        <if test="title != null and title != ''">
+            AND TITLE LIKE CONCAT(CONCAT('%',#{title}),'%')
         </if>
-        <if test="keywords != null">
+        <if test="keywords != null and keywords != ''">
             AND KEYWORDS LIKE '%${keywords}%'
         </if>
-        <if test="summary != null">
+        <if test="summary != null and summary != ''">
             AND SUMMARY LIKE '%${summary}%'
         </if>
+        <if test="types != null and types.size > 0">
+            AND TYPE IN
+            <foreach collection="types" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
         <if test="years">
-            AND UPDATE_TIME > NOW() - 000${years}0000000000;
+            AND UPDATE_TIME > DATE_FORMAT(now(),'%Y0000000000') - 000${years}0000000000
         </if>
         <choose>
             <when test="timeASC">
@@ -37,16 +44,38 @@
                 ORDER BY UPDATE_TIME DESC
             </otherwise>
         </choose>
+        LIMIT #{offset},#{countOnePage}
+    </select>
+    <select id="getResultsCount" parameterType="com.wardmate.vo.EvidenceQueryObject" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM EVIDENCE WHERE 1=1
+        <if test="title != null and title != ''">
+            AND TITLE LIKE CONCAT(CONCAT('%',#{title}),'%')
+        </if>
+        <if test="keywords != null and keywords != ''">
+            AND KEYWORDS LIKE '%${keywords}%'
+        </if>
+        <if test="summary != null and summary != ''">
+            AND SUMMARY LIKE '%${summary}%'
+        </if>
+        <if test="types != null and types.size > 0">
+            AND TYPE IN
+            <foreach collection="types" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="years">
+            AND UPDATE_TIME > DATE_FORMAT(now(),'%Y0000000000') - 000${years}0000000000
+        </if>
     </select>
     <select id="getTypesWithSpecifiedConditions" parameterType="com.wardmate.vo.EvidenceQueryObject" resultType="java.lang.String">
         SELECT DISTINCT(TYPE) FROM EVIDENCE WHERE 1=1
-        <if test="title != null">
+        <if test="title != null and title != ''">
             AND TITLE LIKE '%${title}%'
         </if>
-        <if test="keywords != null">
+        <if test="keywords != null and keywords != ''">
             AND KEYWORDS LIKE '%${keywords}%'
         </if>
-        <if test="summary != null">
+        <if test="summary != null and summary != ''">
             AND SUMMARY LIKE '%${summary}%'
         </if>
     </select>

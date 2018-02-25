@@ -162,8 +162,11 @@ public class JavaAPITester {
     }
     @Test
     public void commonTest(){
-        String result = MD5.getMD5String("lucy"+MD5.getMD5String("lucy999"));
+        Integer i1 = 16;
+        Integer i2 = 8;
+        Integer result = (i1-1)/i2 + 1;
         System.out.println(result);
+        //System.out.println((int)Math.ceil((double)i1/i2));
     }
     @Test
     public void testString(){
