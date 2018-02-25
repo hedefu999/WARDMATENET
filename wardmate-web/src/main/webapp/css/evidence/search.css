@@ -26,18 +26,12 @@
 .evidenceList .medicine{background: #25ca00;}
 
 #searchResults{clear: both;margin: 1rem;}
-#searchResults .screener{padding:0 1rem;background: #eee;}
-#searchResults .screener .panel-title{color: #428bca;width: 10rem;}
-#searchResults .screener .panel-collapse label{display: block;}
-
+#searchResults .screenToolBox{padding:1rem;background: #eee;}
+#searchResults .screenToolBox .panel-title{color: #428bca;width: 10rem;}
+#searchResults .screenToolBox .panel-collapse label{padding: 0.5rem 2rem;}
 #searchResults .evidenceList .itemfoot{margin-top:1rem; }
 #searchResults .evidenceList .itemfoot .date{float: right;margin-right:2rem; }
 
-#searchresults .pagination{float: right;}
 
 
-#instruction{width: 80%;margin: 1rem auto 1rem auto;background: #eee;}
-#instruction img{ width: 70%;margin: 1rem; margin: 20% auto;}
-#instruction h3{color: #468cc8;font-size: 3rem;}
-#instruction p{text-indent: 4rem;}
 

@@ -21,4 +21,22 @@ public class EvidenceService implements IEvidenceService {
     public List<Evidence> queryEvidence(EvidenceQueryObject queryObject) {
         return evidenceMapper.search(queryObject);
     }
+
+    @Override
+    public List<String> getEvidenceTypes(EvidenceQueryObject queryObject) {
+        return evidenceMapper.getTypesWithSpecifiedConditions(queryObject);
+    }
+
+    @Override
+    public Integer getTotalResultCount(EvidenceQueryObject queryObject) {
+        return evidenceMapper.getResultsCount(queryObject);
+    }
+
+    @Override
+    public Integer getTotalPageCount(EvidenceQueryObject queryObject) {
+        Integer totalItemsCount = evidenceMapper.getResultsCount(queryObject);
+        //相比使用函数更巧妙 (int)Math.floor(totalItemsCount / queryObject.getCountOnePage());
+        Integer totalPageCount = (totalItemsCount - 1)/queryObject.getCountOnePage() + 1;
+        return totalPageCount;
+    }
 }

@@ -19,8 +19,8 @@ public class PageQueryResult implements Serializable{
     //依据总行数rowCount、pageSize计算分页数量
     public Integer getPageCount(){
         if(this.pageSize > 0){
-            //rowCount记录查询结果行数，从1开始计数，需要 - 1
-            return (Integer)((this.recordCount - 1)/this.pageSize) + 1;
+            //rowCount记录查询结果行数
+            return (this.recordCount - 1)/this.pageSize + 1;
         }else {
             return -1;
         }

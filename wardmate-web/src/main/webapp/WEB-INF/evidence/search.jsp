@@ -1,7 +1,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page contentType="text/html;charset=utf-8" %>
+<%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -17,6 +17,8 @@
     <link rel="stylesheet" href="/assets/bootstrap/treeview/bootstrap-treeview.min.css"/>
     <link rel="stylesheet" href="/css/common/rem.css"/>
     <link rel="stylesheet" href="/css/common/navbar.css"/>
+    <link rel="stylesheet" href="/assets/icheck/square/_all.css">
+    <link rel="stylesheet" href="/assets/layui/layui.css"/>
     <link rel="stylesheet" href="/css/evidence/search.css?v=20180224"/>
 </head>
 <body>
@@ -28,12 +30,16 @@
         <span>病友网循证搜索&emsp;</span>
     </div>
     <div class="col-xs-7 col-sm-5">
-        <form:form id="search" action="/evidence/queryEvidence" method="get" modelAttribute="queryObject">
+        <form:form id="simpleSearchForm" action="/evidence/queryEvidence" method="get" modelAttribute="simpleQueryObject">
             <div class="input-group">
                 <div class="input-group-addon btn btn-default" style="padding: 0;">
-                    <form:select path="type" items="${evidenceType}"/>
+                    <form:select path="fieldCode">
+                        <c:forEach items="${searchFieldMap}" var="field">
+                            <form:option value="${field.key}" label="${field.value}"/>
+                        </c:forEach>
+                    </form:select>
                 </div>
-                <form:input path="keywords" class="form-control keywords"/>
+                <form:input path="searchTerm" class="form-control keywords"/>
                 <div class="btn btn-primary input-group-addon" onclick="submit()">
                     <i class="fa fa-search">&emsp;搜   索</i>
                 </div>
@@ -42,61 +48,42 @@
     </div>
 </div>
 <div id="searchResults">
+    <%--更多筛选方案EvidenceQueryObject中已封装，在页面展示即可生效--%>
     <div class="col-xs-12 col-sm-3 col-md-3 screener">
+        <div class="screenToolBox">
         <h4>分类筛选:</h4>
-        <form:form action="" modelAttribute="queryObject">
-        <div class="panel panel-default">
-            <div class="panel-heading"><h4 class="panel-title">
-                <a href="#typeScreener" data-toggle="collapse" class="">证据类型&emsp;&emsp;<i class="fa fa-arrow-down"></i></a>
-            </h4></div>
-            <div id="typeScreener" class="panel-collapse collapse in"><div class="panel-body">
-                <div class="checkbox-group">
-                    <form:checkboxes items="evidenceType">
-                        <form:checkbox path="type"
-                    </form:checkboxes>
-                    <label class=""><input type="checkbox" value="option1" checked><strong>&nbsp;临床指南</strong></label>
-                    <label class=""><input type="checkbox" value="option1" checked><strong>&nbsp;系统评价</strong></label>
-                    <label class=""><input type="checkbox" value="option1"><strong>&nbsp;临床试验</strong></label>
-                    <label class=""><input type="checkbox" value="option2" checked="checked"><strong>&nbsp;药物信息&emsp;<i class="fa fa-sort-desc"></i></strong>
-                    </label>
-                    <label class="">&emsp;<input type="checkbox" value="option2"><strong>&nbsp;有效性证据</strong></label>
-                    <label class="">&emsp;<input type="checkbox" value="option2"><strong>&nbsp;安全性证据</strong></label>
-                    <label class="">&emsp;<input type="checkbox" value="option2"><strong>&nbsp;经济性证据</strong></label>
-                    <label class=""><input type="checkbox" value="option3"><strong>&nbsp;患者手册</strong></label>
-                    <label class=""><input type="checkbox" value="option3"><strong>&nbsp;卫生技术评估</strong></label>
-                    <label class=""><input type="checkbox" value="option3"><strong>&nbsp;医药卫生政策</strong></label>
-                    <label class=""><input type="checkbox" value="option3"><strong>&nbsp;多媒体资料</strong></label>
-                </div>
-            </div></div>
-        </div>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    <a href="#sourceScreener" data-toggle="collapse" class="collapsed">证据来源&emsp;&emsp;<i class="fa fa-arrow-down"></i></a>
-                </h4>
+        <form:form id="screenEvidenceForm" action="/evidence/screenEvidence" method="get" modelAttribute="queryObject">
+            <form:hidden path="title"/>
+            <form:hidden path="keywords"/>
+            <form:hidden path="summary"/>
+            <form:hidden path="pageNo" class="pageNo"/>
+            <form:hidden path="countOnePage" class="countOnePage"/>
+            <div class="panel panel-default">
+                <div class="panel-heading"><h4 class="panel-title">
+                    <a href="#typeScreener" data-toggle="collapse" class="">证据类型&emsp;&emsp;<i class="fa fa-arrow-down"></i></a>
+                </h4></div>
+                <div id="typeScreener" class="panel-collapse in"><div class="panel-body">
+                    <div class="checkbox-group">
+                        <form:checkboxes items="${queryResult.evidenceTypes}" path="types" delimiter="<br>" onchange="screenEvidence()"/>
+                    </div>
+                </div></div>
             </div>
-            <div id="sourceScreener" class="panel-collapse collapse in"><div class="panel-body">
-                <label class=""><input type="checkbox" value="option1"><strong>&nbsp;出版图书</strong></label>
-                <label class=""><input type="checkbox" value="option1"><strong>&nbsp;期刊杂志</strong></label>
-                <label class=""><input type="checkbox" value="option1"><strong>&nbsp;政策文件</strong></label>
-            </div></div>
-        </div>
-        <div class="panel panel-default">
-            <div class="panel-heading"><h4 class="panel-title">
-                <a href="#updateTimeScreener" data-toggle="collapse" class="collapsed">发布日期&emsp;&emsp;<i class="fa fa-arrow-down"></i></a>
-            </h4></div>
-            <div id="updateTimeScreener" class="panel-collapse collapse"><div class="panel-body">
-                <div class="radio-group">
-                    <label class=""><input type="radio" value="option3" name="myradio"><strong> — 2017 — </strong></label>
-                    <label class=""><input type="radio" value="option1" name="myradio"><strong> — 近3年 — </strong></label>
-                    <label class=""><input type="radio" value="option2" name="myradio" checked="checked"><strong> — 近5年 — </strong></label>
-                </div>
-            </div></div>
-        </div>
+            <div class="panel panel-default">
+                <div class="panel-heading"><h4 class="panel-title">
+                    <a href="#updateTimeScreener" data-toggle="collapse" class="collapsed">发布日期&emsp;&emsp;<i class="fa fa-arrow-down"></i></a>
+                </h4></div>
+                <div id="updateTimeScreener" class="panel-collapse in"><div class="panel-body">
+                    <div class="radio-group">
+                        <form:radiobuttons path="years" items="${yearMap}" delimiter="<br>" onchange="screenEvidence()" onclick="screenEvidence()"/>
+                    </div>
+                </div></div>
+            </div>
         </form:form>
+        </div>
     </div>
     <div class="col-xs-12 col-sm-9 col-md-9 evidenceList">
-        <c:forEach items="${evidenceList}" var="evidence">
+        <div id="pageButtonTop" total="${queryResult.totalResultCount}"></div>
+        <c:forEach items="${queryResult.evidences}" var="evidence">
             <div class="itemborder ${evidence.className}border">
                 <h4><a href="/evidence/getContent/${evidence.contentLink}">${evidence.title}</a></h4>
                 <span>${evidence.summary}</span>
@@ -107,15 +94,14 @@
                 </div>
             </div>
         </c:forEach>
-        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-        <ul class="pagination">
-            <li><a href="#">«上一页</a></li><li><a href="#">1</a></li><li><a href="#">2</a></li><li><a href="#">3</a></li><li><a href="#">4</a></li><li><a href="#">5</a></li><li><a href="#">下一页»</a></li>
-        </ul>
+        <div id="pageButtonBottom" total="${queryResult.totalResultCount}"></div>
     </div>
 </div>
 <script src="/assets/jquery/jquery-3.2.1.min.js" type="text/javascript"></script>
 <script type="text/javascript" src="/assets/icheck/icheck.min.js"></script>
 <script type="text/javascript" src="/javascript/utils/formatdate.js"></script>
+<script type="text/javascript" src="/assets/layui/layui.js"/>
+<script type="text/javascript" src="/assets/layui/laypage/laypage.js"></script>
 <script type="text/javascript" src="/javascript/evidence/search.js"></script>
 </body>
 </html>

@@ -4,62 +4,79 @@
 function submit() {
     var keyword = $('#searchBar .keywords').val();
     if(keyword != null && keyword.length != 0){
-        $('#search').submit();
+        $('#simpleSearchForm').submit();
     }
 }
 //fix second searchbox to the top of the window
 var fixSearchBar = function(){
     var searchBar = $('#searchBar');
     $(searchBar).css('z-index',10);
-    var startposition = searchBar.offset().top;
+    var searchBarTop = searchBar.offset().top;
+
+    var screenToolBox = $('#searchResults .screenToolBox');
+    $(screenToolBox).css('z-index',10);
+    var screenToolBoxTop = screenToolBox.offset().top;
+
     $.event.add(window,"scroll",function(){
         var scrolldistance = $(window).scrollTop();
-        if(scrolldistance>startposition){
+        if(scrolldistance>searchBarTop){
             $(searchBar).css('position','fixed').css('top',0);
+            $(screenToolBox).css('position','fixed').css('top',screenToolBoxTop - searchBarTop).css('width','23%');
         }else{
             $(searchBar).css('position','').css('top','');
+            $(screenToolBox).css('position','').css('top','').css('width','');
         }
     });
 }
 fixSearchBar();
 
-// icheck checkbox and radio initialization
-// $('#resultschooser-catagory input').iCheck({
-//     checkboxClass: 'icheckbox_square-green'
-// });
-// $('#sourceScreener input').iCheck({
-//     checkboxClass: 'icheckbox_square-orange'
-// });
-// $('#resultschooser-date input').iCheck({
-//     checkboxClass: 'icheckbox_square-green',radioClass: 'iradio_square-blue',increaseArea: '20%' // optional
-// });
-
-//fix this treeview to the top of the window
-var fixdetailsdir = function(){
-    var height = $('#secondpanel').height();
-    var menutitle = $('#details .menuwrapper');
-    //menutitle.offset().top;//元素的hide remove操作使得这里获取的值始终为0，导致bug，这里使用了绝对值
-    var startpos = 100;
-    $.event.add(window,"scroll",function(){
-        var scrolldistance = $(window).scrollTop();
-        //调试用。。。
-        // $('#secondpanel span').html(scrolldistance+'-start-'+startpos+'-panelheight-'+height);
-        if(scrolldistance+height>startpos){
-            $(menutitle).css('position','fixed');$(menutitle).css('top', '4.5rem');$(menutitle).css('width','19%');
-        }else{
-            $(menutitle).css('position','initial');$(menutitle).css('top','');$(menutitle).css('width','100%');
+function screenEvidence() {
+    $('#screenEvidenceForm .pageNo').val(1);
+    $('#screenEvidenceForm').submit();
+}
+layui.use('laypage', function() {
+    var laypage = layui.laypage;
+    laypage.render({
+        elem: 'pageButtonTop',
+        count: $('#pageButtonTop').attr('total'),
+        curr:$('#screenEvidenceForm .pageNo').val(),
+        limit:$('#screenEvidenceForm .countOnePage').val(),
+        layout:	['prev', 'page', 'next', 'count'],
+        jump: function (obj,first) {
+            //直接打印obj在chrome中看不出curr的变化，奇怪... 20180225
+            $('#screenEvidenceForm .pageNo').val(obj.curr);
+            if(!first){
+                $('#screenEvidenceForm').submit();
+            }
         }
     });
-}
-// $('#details .col-md-9 thead tr th').css('width','5rem');
-
-$(function(){
-    fixdetailsdir();
-    $('#searchresults .testmedicine').click(function(){
-        //展示药物信息
-        $('#searchresults').hide();
-        setTimeout(function(){
-            $('#details').show();$('#secondpanel .tools').show();
-        },1000);
+    laypage.render({
+        elem: 'pageButtonBottom',
+        count: $('#pageButtonBottom').attr('total'),
+        curr:$('#screenEvidenceForm .pageNo').val(),
+        limit:$('#screenEvidenceForm .countOnePage').val(),
+        layout:	['prev', 'page', 'next', 'count', 'skip'],
+        jump: function (obj,first) {
+            //直接打印obj在chrome中看不出curr的变化，奇怪... 20180225
+            $('#screenEvidenceForm .pageNo').val(obj.curr);
+            if(!first){
+                $('#screenEvidenceForm').submit();
+            }
+        }
     });
 });
+
+// 使用icheck带来绑定问题,onchange=""失效了
+$('#typeScreener input[type="checkbox"]').on('ifChanged', function(event){
+    screenEvidence();
+});
+$('#updateTimeScreener input[type="radio"]').on('ifChanged', function(event){
+    screenEvidence();
+});
+$('#typeScreener input[type="checkbox"]').iCheck({
+    checkboxClass: 'icheckbox_square-green'
+});
+$('#updateTimeScreener input[type="radio"]').iCheck({
+    radioClass:'iradio_square-blue'
+});
+

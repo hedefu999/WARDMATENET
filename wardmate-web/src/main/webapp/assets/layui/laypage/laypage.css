@@ -1,0 +1,30 @@
+/*从layui.css中抽取的样式，已弃用*/
+.layui-laypage {display: inline-block;vertical-align: middle;margin: 10px 0;font-size: 0;}
+.layui-box, .layui-box * {box-sizing: content-box;}
+.layui-laypage>a:first-child, .layui-laypage>a:first-child em {border-radius: 2px 0 0 2px;}
+.layui-laypage>:first-child {margin-left: 0!important;}
+.layui-laypage a {text-decoration: none;}
+.layui-laypage a, .layui-laypage span {display: inline-block;vertical-align: middle;padding: 0 15px;height: 28px;line-height: 28px;margin: 0 -1px 5px 0;background-color: #fff;
+    color: #333;font-size: 12px;}
+.layui-laypage a, .layui-laypage button, .layui-laypage input, .layui-laypage select, .layui-laypage span {border: 1px solid #e2e2e2;}
+.layui-disabled, .layui-disabled:hover {color: #d2d2d2!important;cursor: not-allowed!important;}
+.layui-box, .layui-box * {box-sizing: content-box;}
+.layui-btn, .layui-disabled, .layui-icon, .layui-unselect {-webkit-user-select: none;-ms-user-select: none;-moz-user-select: none;}
+.layui-laypage .layui-laypage-curr {position: relative;}
+.layui-laypage a, .layui-laypage span {display: inline-block;vertical-align: middle;padding: 0 15px;height: 28px;line-height: 28px;margin: 0 -1px 5px 0;background-color: #fff;
+    color: #333;font-size: 12px;}
+.layui-laypage .layui-laypage-curr .layui-laypage-em {position: absolute;left: -1px;top: -1px;padding: 1px;width: 100%;height: 100%;background-color: #008080;}
+.layui-laypage .layui-laypage-curr em {position: relative;color: #fff;}
+.layui-laypage em {font-style: normal;}
+.layui-laypage-em {border-radius: 2px;}
+.layui-laypage>a:last-child, .layui-laypage>a:last-child em {border-radius: 0 2px 2px 0;}
+.layui-laypage>:last-child {margin-right: 0!important;}
+.layui-laypage .layui-laypage-count, .layui-laypage .layui-laypage-limits, .layui-laypage .layui-laypage-skip {margin-left: 10px;margin-right: 10px;padding: 0;border: none;
+}
+.layui-laypage .layui-laypage-skip {height: 30px;line-height: 30px;color: #999;}
+.layui-laypage .layui-laypage-count, .layui-laypage .layui-laypage-limits, .layui-laypage .layui-laypage-skip {margin-left: 10px;margin-right: 10px;padding: 0;
+border: none;}
+.layui-laypage input {display: inline-block;width: 40px;margin: 0 10px;padding: 0 3px;text-align: center;}
+.layui-laypage button, .layui-laypage input {height: 30px;line-height: 30px;border-radius: 2px;vertical-align: top;background-color: #fff;box-sizing: border-box;}
+.layui-laypage button {margin-left: 10px;padding: 0 10px;cursor: pointer;}
+.layui-laypage button, .layui-laypage input {height: 30px;line-height: 30px;border-radius: 2px;vertical-align: top;background-color: #fff;box-sizing: border-box;}
