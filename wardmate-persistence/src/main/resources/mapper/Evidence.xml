@@ -14,10 +14,18 @@
         <result column="SUMMARY" property="summary"/>
         <result column="CLASS_NAME" property="className"/>
     </resultMap>
+    <sql id="allFieldSearch">
+        <if test="allField != null and allField != ''">
+            AND TITLE LIKE CONCAT(CONCAT('%',#{allField}),'%')
+            OR KEYWORDS LIKE '%${allField}%'
+            OR SUMMARY LIKE '%${allField}%'
+        </if>
+    </sql>
 
     <!--使用占位符#{}可以防止SQL注入，但占位符会产生引号''，解决办法是使用CONCAT函数。-->
     <select id="search" parameterType="com.wardmate.vo.EvidenceQueryObject" resultMap="BASE_COLUMN">
         SELECT * FROM EVIDENCE WHERE 1=1
+        <include refid="allFieldSearch"/>
         <if test="title != null and title != ''">
             AND TITLE LIKE CONCAT(CONCAT('%',#{title}),'%')
         </if>
@@ -48,6 +56,7 @@
     </select>
     <select id="getResultsCount" parameterType="com.wardmate.vo.EvidenceQueryObject" resultType="java.lang.Integer">
         SELECT COUNT(1) FROM EVIDENCE WHERE 1=1
+        <include refid="allFieldSearch"/>
         <if test="title != null and title != ''">
             AND TITLE LIKE CONCAT(CONCAT('%',#{title}),'%')
         </if>
@@ -69,6 +78,7 @@
     </select>
     <select id="getTypesWithSpecifiedConditions" parameterType="com.wardmate.vo.EvidenceQueryObject" resultType="java.lang.String">
         SELECT DISTINCT(TYPE) FROM EVIDENCE WHERE 1=1
+        <include refid="allFieldSearch"/>
         <if test="title != null and title != ''">
             AND TITLE LIKE '%${title}%'
         </if>

@@ -1,5 +1,6 @@
 <%--被引入页面加这一句可防止乱码--%>
 <%@ page contentType="text/html;charset=utf-8" language="java" %>
+<link rel="stylesheet" href="/assets/awesomefonts/css/font-awesome.min.css">
 <link rel="stylesheet" href="/css/common/navbar.css" type="text/css">
 <nav id="navbar" class="navbar navbar-default navabr-fixed-top">
     <div class="container-fluid">

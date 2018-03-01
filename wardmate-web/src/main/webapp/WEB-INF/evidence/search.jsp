@@ -5,7 +5,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta http-equiv="Expires" content="0">
     <meta http-equiv="Pragma" content="no-cache">
@@ -14,7 +14,6 @@
     <title>证据检索</title>
     <link rel="stylesheet" href="/assets/awesomefonts/css/font-awesome.min.css">
     <link rel="stylesheet" href="/assets/bootstrap/bootstrap.min.css"/>
-    <link rel="stylesheet" href="/assets/bootstrap/treeview/bootstrap-treeview.min.css"/>
     <link rel="stylesheet" href="/css/common/rem.css"/>
     <link rel="stylesheet" href="/css/common/navbar.css"/>
     <link rel="stylesheet" href="/assets/icheck/square/_all.css">
@@ -74,7 +73,7 @@
                 </h4></div>
                 <div id="updateTimeScreener" class="panel-collapse in"><div class="panel-body">
                     <div class="radio-group">
-                        <form:radiobuttons path="years" items="${yearMap}" delimiter="<br>" onchange="screenEvidence()" onclick="screenEvidence()"/>
+                        <form:radiobuttons path="years" items="${yearMap}" delimiter="<br>"/>
                     </div>
                 </div></div>
             </div>
@@ -100,8 +99,7 @@
 <script src="/assets/jquery/jquery-3.2.1.min.js" type="text/javascript"></script>
 <script type="text/javascript" src="/assets/icheck/icheck.min.js"></script>
 <script type="text/javascript" src="/javascript/utils/formatdate.js"></script>
-<script type="text/javascript" src="/assets/layui/layui.js"/>
-<script type="text/javascript" src="/assets/layui/laypage/laypage.js"></script>
+<script type="text/javascript" src="/assets/layui/layui.js"></script>
 <script type="text/javascript" src="/javascript/evidence/search.js"></script>
 </body>
 </html>
