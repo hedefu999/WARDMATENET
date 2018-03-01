@@ -1,9 +1,11 @@
 package com.wardmate.vo;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class EvidenceQueryObject {
+public class EvidenceQueryObject implements Serializable{
     //简单检索支持的检索字段
+    private String allField;
     private String title;
     private String keywords;
     private String summary;
@@ -13,7 +15,15 @@ public class EvidenceQueryObject {
     private Integer years = 0;
     private Integer pageNo = 1;
     private Integer offset;
-    private Integer countOnePage = 12;
+    private Integer countOnePage = 9;
+
+    public String getAllField() {
+        return allField;
+    }
+
+    public void setAllField(String allField) {
+        this.allField = allField;
+    }
 
     public String getTitle() {
         return title;

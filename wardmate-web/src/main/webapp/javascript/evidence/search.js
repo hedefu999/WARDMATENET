@@ -65,7 +65,12 @@ layui.use('laypage', function() {
         }
     });
 });
-
+$('#typeScreener input[type="checkbox"]').iCheck({
+    checkboxClass: 'icheckbox_square-green'
+});
+$('#updateTimeScreener input[type="radio"]').iCheck({
+    radioClass:'iradio_square-blue'
+});
 // 使用icheck带来绑定问题,onchange=""失效了
 $('#typeScreener input[type="checkbox"]').on('ifChanged', function(event){
     screenEvidence();
@@ -73,10 +78,5 @@ $('#typeScreener input[type="checkbox"]').on('ifChanged', function(event){
 $('#updateTimeScreener input[type="radio"]').on('ifChanged', function(event){
     screenEvidence();
 });
-$('#typeScreener input[type="checkbox"]').iCheck({
-    checkboxClass: 'icheckbox_square-green'
-});
-$('#updateTimeScreener input[type="radio"]').iCheck({
-    radioClass:'iradio_square-blue'
-});
+
 

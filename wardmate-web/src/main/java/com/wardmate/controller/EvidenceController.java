@@ -51,6 +51,7 @@ public class EvidenceController {
         String searchTerm = simpleQueryObject.getSearchTerm();
         switch (simpleQueryObject.getFieldCode()){
             case 1:
+                queryObject.setAllField(searchTerm);
                 break;
             case 2:
                 queryObject.setTitle(searchTerm);
@@ -86,7 +87,6 @@ public class EvidenceController {
     @RequestMapping("/screenEvidence")
     public String screenEvidence(EvidenceQueryObject queryObject, ModelMap modelMap){
         logger.info(queryObject);
-        Integer totalPageCount = evidenceService.getTotalPageCount(queryObject);
         Integer totalResultCount = evidenceService.getTotalResultCount(queryObject);
         //使用@ModelAttribute可以将接收到的EvidenceQueryObject自动更新到request/modelMap中
         List<Evidence> evidences = evidenceService.queryEvidence(queryObject);
