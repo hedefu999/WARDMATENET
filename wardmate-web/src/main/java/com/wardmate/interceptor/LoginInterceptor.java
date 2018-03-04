@@ -17,8 +17,14 @@ public class LoginInterceptor implements HandlerInterceptor {
         if(session.getAttribute(WebAppConstant.LOGIN_SESSION_HEAD) != null){
             return true;
         }else {
-            String url = request.getRequestURI();//获取上个页面的url
-            session.setAttribute(WebAppConstant.URL_INTERCEPTED, url);
+            if(request.getHeader("x-requested-with") != null
+                    && request.getHeader("x-requested-with").equalsIgnoreCase("XMLHttpRequest")){
+                //拦截到一个Ajax请求
+                session.setAttribute(WebAppConstant.URL_INTERCEPTED, "/welcome");
+            }else {
+                String url = request.getRequestURI()+'?'+request.getQueryString();//获取上个页面的url
+                session.setAttribute(WebAppConstant.URL_INTERCEPTED, url);
+            }
             request.setAttribute("message", SimpleHttpMessage.LOGIN_CHECK_NOTVALID);
             request.getRequestDispatcher("/login").forward(request,response);
             return false;

@@ -23,7 +23,6 @@
     <link rel="stylesheet" href="/assets/bootstrap/bootstrap.min.css"/>
     <link rel="stylesheet" href="/css/common/rem.css"/>
     <link rel="stylesheet" href="/css/common/navbar.css"/>
-    <link rel="stylesheet" href="/css/common/submenu.css"/>
     <style type="text/css">
         #patientsGroups .groupWrapper{padding: 0.5rem;}
         #patientsGroups .patientGroup{height: 16rem;background-color: #eee;border: 1px solid #ddd;border-radius: 4px;padding-left: 2rem;position: relative;}

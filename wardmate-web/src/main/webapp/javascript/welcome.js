@@ -24,6 +24,14 @@ $(function(){
 	},function () {
         $(this).css('width','50%');
     });
+	$('.bannerlink .logout').click(function (event) {
+		event.preventDefault();
+        $.get('/logout',function (result) {
+			layer.msg(result, {icon: 1},function () {
+				window.location.href = '/welcome?menuIndex=1';
+			});
+        });
+    });
 
 });
 var initcontent = function(imgheight){

@@ -18,31 +18,17 @@
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="Cache" content="no-cache">
     <title>循证医学</title>
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="/assets/awesomefonts/css/font-awesome.min.css">
     <link rel="stylesheet" href="/assets/bootstrap/bootstrap.min.css"/>
     <link rel="stylesheet" href="/css/common/rem.css"/>
-    <link rel="stylesheet" href="/css/common/submenu.css"/>
     <link rel="stylesheet" href="/css/knowledge/glossary.css?v=20180207" type="text/css"/>
 </head>
 <body>
 <%@include file="/WEB-INF/common/navbar.jsp"%>
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-offset-1 col-lg-offset-1">
-        <div id="submenu">
-            <div class="row">
-                <div class="col-xs-12 col-sm-8 col-md-8 col menulink">
-                    <a class="" href="/knowledge/aboutEBM"><i class="fa fa-binoculars" aria-hidden="true">&nbsp;关于循证医学</i></a>
-                    <a class="active" href="#"><i class="fa fa-book" aria-hidden="true">&nbsp;专业术语</i></a>
-                    <a class="" href="#"><i class="fa fa-wrench" aria-hidden="true">&nbsp;循证实践</i></a>
-                    <a class="" href="#"><i class="fa fa-gavel" aria-hidden="true">&nbsp;卫生技术评估</i></a>
-                </div>
-
-                <div class="col-xs-0 col-sm-4 col-md-4 col"><div class="userentrance"><a href="#"> <img class="avatar" src="/image/community/avatar.png">&emsp;${sessionScope.LoggedUser}</a><a href="#">&emsp;</a></div></div>
-            </div>
-        </div><!-- submenu -->
-
-        <div id="topNews" class="carousel slide">
+        <%@include file="submenu.jsp"%>
+        <div id="topNews" class="carousel slide knowledge">
             <div class="carousel-inner">
                 <div class="item active">
                     <div class="row banner">
@@ -92,7 +78,7 @@
             </div>
             <div class="col col-xs-12"><%@ include file="/WEB-INF/common/pagenavigator.jsp"%></div>
         </div>
-        <div id="glossary">
+        <div id="glossary" class="knowledge">
             <c:forEach items="${knowledgeCards}" var="card" varStatus="index">
                 <div class="card">
                     <h4>${card.title}</h4>
@@ -108,7 +94,7 @@
         <div id="getMoreCard"><a href="$" class="more">加载更多</a></div>
     </div>
 </div>
-
+<%@include file="/WEB-INF/common/saveSnippet.jsp"%>
 <script src="/assets/jquery/jquery-3.2.1.min.js" type="text/javascript"></script>
 <script src="/assets/bootstrap/bootstrap.min.js" type="text/javascript"></script>
 <script src="/assets/cascadefluid/masonry.pkgd.min.js" type="text/javascript"></script>

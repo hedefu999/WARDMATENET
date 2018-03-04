@@ -17,10 +17,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
@@ -55,6 +52,7 @@ public class IndexController {
     public String gotoLogin(){
         return "/common/login";
     }
+
     @RequestMapping("/logon")
     public String gotoLogon(ModelMap modelMap){
         modelMap.put("genders",genderMap);
@@ -75,7 +73,7 @@ public class IndexController {
                 session.setAttribute(WebAppConstant.LOGIN_SESSION_ID,preparedUser.getId());
                 session.setAttribute(WebAppConstant.LOGIN_SESSION_BODY,preparedUser);
                 String lastURL = (String) session.getAttribute(WebAppConstant.URL_INTERCEPTED);
-                if(lastURL == null || lastURL.equals("")) lastURL="/welcome";
+                if(lastURL == null || lastURL.equals("")) lastURL="/welcome?menuIndex=1";
                 return "forward:"+lastURL;
             }else {
                 modelMap.put("message",SimpleHttpMessage.LOGIN_FAILED);
@@ -109,12 +107,11 @@ public class IndexController {
         }
     }
 
+    @ResponseBody
     @RequestMapping("/logout")
     public String logout(HttpSession session){
-        session.removeAttribute(WebAppConstant.LOGIN_SESSION_ID);
-        session.removeAttribute(WebAppConstant.LOGIN_SESSION_HEAD);
-        session.removeAttribute(WebAppConstant.LOGIN_SESSION_BODY);
-        return "/welcome";
+        session.invalidate();//清除session中的全部信息
+        return SimpleHttpMessage.LOGOUT_SUCCESS;
     }
 
     @RequestMapping("/welcome/gotoUserProfile/{userId}")

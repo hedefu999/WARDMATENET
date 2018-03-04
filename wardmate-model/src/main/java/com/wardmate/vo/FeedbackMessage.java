@@ -1,9 +1,25 @@
 package com.wardmate.vo;
 
-public class FeedbackMessage {
+import java.io.Serializable;
+
+public class FeedbackMessage implements Serializable{
     private String title;
     private String content;
     private String targetURL;
+
+    public FeedbackMessage() {
+    }
+
+    public FeedbackMessage(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
+
+    public FeedbackMessage(String title, String content, String targetURL) {
+        this.title = title;
+        this.content = content;
+        this.targetURL = targetURL;
+    }
 
     public String getTitle() {
         return title;

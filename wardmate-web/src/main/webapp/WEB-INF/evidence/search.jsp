@@ -15,7 +15,6 @@
     <link rel="stylesheet" href="/assets/awesomefonts/css/font-awesome.min.css">
     <link rel="stylesheet" href="/assets/bootstrap/bootstrap.min.css"/>
     <link rel="stylesheet" href="/css/common/rem.css"/>
-    <link rel="stylesheet" href="/css/common/navbar.css"/>
     <link rel="stylesheet" href="/assets/icheck/square/_all.css">
     <link rel="stylesheet" href="/assets/layui/layui.css"/>
     <link rel="stylesheet" href="/css/evidence/search.css?v=20180224"/>
@@ -39,6 +38,7 @@
                     </form:select>
                 </div>
                 <form:input path="searchTerm" class="form-control keywords"/>
+                <input type="hidden" value="3" name="menuIndex">
                 <div class="btn btn-primary input-group-addon" onclick="submit()">
                     <i class="fa fa-search">&emsp;搜   索</i>
                 </div>
@@ -57,6 +57,8 @@
             <form:hidden path="summary"/>
             <form:hidden path="pageNo" class="pageNo"/>
             <form:hidden path="countOnePage" class="countOnePage"/>
+            <%--用于前台判断当前的导航栏按钮--%>
+            <input type="hidden" value="3" name="menuIndex">
             <div class="panel panel-default">
                 <div class="panel-heading"><h4 class="panel-title">
                     <a href="#typeScreener" data-toggle="collapse" class="">证据类型&emsp;&emsp;<i class="fa fa-arrow-down"></i></a>
@@ -84,7 +86,7 @@
         <div id="pageButtonTop" total="${queryResult.totalResultCount}"></div>
         <c:forEach items="${queryResult.evidences}" var="evidence">
             <div class="itemborder ${evidence.className}border">
-                <h4><a href="/evidence/getContent/${evidence.contentLink}">${evidence.title}</a></h4>
+                <h4><a href="/evidence/getContent/${evidence.contentLink}?menuIndex=3">${evidence.title}</a></h4>
                 <span>${evidence.summary}</span>
                 <div class="itemfoot">
                     来源：<span>${evidence.source}</span>

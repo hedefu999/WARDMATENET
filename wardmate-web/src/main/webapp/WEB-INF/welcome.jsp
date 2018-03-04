@@ -17,31 +17,7 @@
     <!--<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">-->
 </head>
 <body>
-<nav id="navbar" class="navbar navbar-default navabr-fixed-top">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a id="navbar-logo" class="navbar-brand" href="/welcome"><img src="/image/welcome/logo.png" alt="病友网"></a>
-            <a href="#" class="navbar-brand">病 友 网</a>
-            <!--移动设备上显示-->
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-        </div>
-        <div class="collapse navbar-collapse navbar-right" id="navbar-collapse">
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="/welcome"><i class="fa fa-home" aria-hidden="true">&nbsp;首  页</i></a></li>
-                <li><a href="/knowledge/index"><i class="fa fa-book" aria-hidden="true"></i>&nbsp;循证医学</a></li>
-                <li><a href="/evidence/index"><i class="fa fa-search" aria-hidden="true">&nbsp;医疗查证</i></a></li>
-                <li><a href="/community/index"><i class="fa fa-group" aria-hidden="true">&nbsp;病友社区</i></a></li>
-                <li><a href="/management/index"><i class="fa fa-address-card" aria-hidden="true">&nbsp;健康记录</i></a></li>
-            </ul>
-        </div>
-    </div> <!--container-->
-</nav>
-
+<%@include file="common/navbar.jsp"%>
 <div id="index_banner">
     <img class="img-responsive bannerimg" src="/image/welcome/tempbanner.png" alt="医生" >
     <div class="bannerscreen"></div>
@@ -57,7 +33,7 @@
                 <c:set var="LOGIN_USER_NAME" scope="session" value="${sessionScope.LOGIN_USER_NAME}"/>
                 <c:choose>
                     <c:when test="${LOGIN_USER_NAME != null}">
-                        <h3>您好！&emsp;<a href="/welcome/gotoUserProfile/${sessionScope.LOGIN_USER.id}">${LOGIN_USER_NAME}</a>&emsp;<small><a href="/logout">登出</a></small></h3>
+                        <h3>您好！&emsp;<a href="/welcome/gotoUserProfile/${sessionScope.LOGIN_USER.id}">${LOGIN_USER_NAME}</a>&emsp;<small><a href="/logout" class="logout">登出</a></small></h3>
                     </c:when>
                     <c:when test="${LOGIN_USER_NAME == null}">
                         <a href="/logon">注册</a>&emsp;&emsp;
@@ -103,6 +79,7 @@
 
 <script src="/assets/jquery/jquery-3.2.1.min.js" type="text/javascript"></script>
 <script src="/assets/bootstrap/bootstrap.min.js" type="text/javascript"></script>
+<script src="/assets/layer/layer.js" type="text/javascript"></script>
 <script src="/javascript/welcome.js" type="text/javascript"></script>
 
 <!--下面是CDN引用方式,项目发布时替换使用-->
