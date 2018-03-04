@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wardmate.mapper.NoteBookMapper">
+    <resultMap id="BASE_COLUMN" type="com.wardmate.model.NoteSnippet">
+        <id column="ID" property="id"/>
+        <result column="USER_ID" property="userId"/>
+        <result column="TITLE" property="title"/>
+        <result column="NOTE_CONTENT" property="content"/>
+        <result column="UPDATE_TIME" property="updateTime"/>
+    </resultMap>
+
+    <insert id="saveOrUpdateNote" parameterType="com.wardmate.model.NoteSnippet">
+        <choose>
+            <when test="id != null and id != ''">
+                UPDATE NOTEBOOK
+                SET TITLE = #{title},NOTE_CONTENT = #{content},UPDATE_TIME = NOW()
+                WHERE id = #{id}
+            </when>
+            <otherwise>
+                INSERT INTO NOTEBOOK(USER_ID,TITLE,NOTE_CONTENT) VALUES(#{userId},#{title},#{content})
+            </otherwise>
+        </choose>
+    </insert>
+
+    <select id="getNoteCountByUserId" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM NOTEBOOK WHERE USER_ID = #{userId}
+    </select>
+    <select id="getNotesOnSpecifiedPage" resultMap="BASE_COLUMN">
+        SELECT ID,USER_ID,TITLE,NOTE_CONTENT,UPDATE_TIME FROM NOTEBOOK
+        WHERE USER_ID = #{userId} ORDER BY UPDATE_TIME DESC
+        LIMIT #{offset},#{count}
+    </select>
+    <delete id="deleteNoteById">
+        DELETE FROM NOTEBOOK
+        WHERE ID = #{noteId}
+    </delete>
+
+</mapper>

@@ -55,6 +55,7 @@
                 </form:select>
             </div>
             <form:input path="searchTerm" class="form-control input-lg keywords"/>
+            <input type="hidden" value="3" name="menuIndex">
             <div class="btn btn-primary input-group-addon" onclick="submit()" style="font-size: 2rem;">
                 <i class="fa fa-search">&emsp;搜   索</i>
             </div>

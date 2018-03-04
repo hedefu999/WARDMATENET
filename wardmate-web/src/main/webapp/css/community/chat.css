@@ -37,3 +37,5 @@
 #chatpaneinput{padding: 0.5rem 2rem;border:1px solid #ccc;border-radius: 0 0 4px 4px;}
 #chatpaneinput .toolbox button{float: left;margin: 0.5rem 0.5rem;}
 #chatpaneinput .toolbox .btn-primary{float: right;}
+
+#tinynotes .deleteBtn {float: right;padding: 0 0.5rem;}

@@ -8,6 +8,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=utf-8" language="java" %>
+<%--使用绝对路径，方便页面被其他页面引用--%>
+<c:set var="rootURL" scope="session" value="http://${pageContext.request.serverName}:${pageContext.request.serverPort}"/>
 <html>
 <head>
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
@@ -69,7 +71,7 @@
                         <input type="text" name="validationCode" class="form-control input-lg" placeholder="输入验证码" required data-required-error="不可为空"/>
                     </div></div>
                     <div class="col col-xs-4 col-sm-4 col-md-4 validationImgWrapper">
-                        <div><img src="/validationCodeImage" alt="看不清，换一张" class="validationImg"/></div>
+                        <div><img src="<c:out value="${rootURL}"/>/validationCodeImage" alt="看不清，换一张" class="validationImg"/></div>
                     </div>
                     <div class="col col-xs-4 col-sm-4 col-md-4"><div class="form-group has-feedback">
                         <div><label><input type="checkbox" value="option1" class="rememberme">&nbsp;<span class="remembermeText">记住我一周</span></label></div>
@@ -98,7 +100,7 @@
     $('input.form-control.input-lg').after('<i class="form-control-feedback icon-large"></i><div class="help-block with-errors"></div>');
     $('#validationRow .validationImg').click(function(){
         //使用时间戳防止浏览器认为是同一张图片，而从缓存中读取
-        $(this).attr("src","validationCodeImage?timestamp="+new Date().getTime());
+        $(this).attr("src","<c:out value="${rootURL}"/>/validationCodeImage?timestamp="+new Date().getTime());
     });
     $('.signsubmit').click(function () {
         var userName = $('#username').val();

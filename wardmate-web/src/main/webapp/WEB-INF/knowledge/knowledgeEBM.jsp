@@ -1,8 +1,9 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=utf-8" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta http-equiv="Expires" content="0">
     <meta http-equiv="Pragma" content="no-cache">
@@ -12,7 +13,6 @@
     <link rel="stylesheet" href="/assets/awesomefonts/css/font-awesome.min.css">
     <link rel="stylesheet" href="/assets/bootstrap/bootstrap.min.css"/>
     <link rel="stylesheet" href="/css/common/rem.css"/>
-    <link rel="stylesheet" href="/css/common/submenu.css"/>
     <style type="text/css">
         p{text-indent: 2rem;}
     </style>
@@ -21,20 +21,8 @@
 <%@include file="/WEB-INF/common/navbar.jsp"%>
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-offset-1 col-lg-offset-1">
-        <div id="submenu">
-            <div class="row">
-                <div class="col-xs-12 col-sm-8 col-md-8 col menulink">
-                    <a class="active" href="#"><i class="fa fa-binoculars" aria-hidden="true">&nbsp;关于循证医学</i></a>
-                    <a class="" href="/knowledge/queryKnowledgeCard"><i class="fa fa-book" aria-hidden="true">&nbsp;专业术语</i></a>
-                    <a class="" href="#"><i class="fa fa-wrench" aria-hidden="true">&nbsp;循证实践</i></a>
-                    <a class="" href="#"><i class="fa fa-gavel" aria-hidden="true">&nbsp;卫生技术评估</i></a>
-                </div>
-
-                <div class="col-xs-0 col-sm-4 col-md-4 col"><div class="userentrance"><a href="#"> <img class="avatar" src="/image/community/avatar.png">&emsp;${sessionScope.LoggedUser}</a><a href="#">&emsp;</a></div></div>
-            </div>
-        </div><!-- submenu -->
-        <div class="EBMInstruction">
-
+        <%@include file="submenu.jsp"%>
+        <div class="EBMInstruction knowledge">
             <h1>循证医学</h1>
             <p>循证医学（英语：Evidence-based medicine，缩写为EBM），意为"遵循证据的医学"，又称实证医学，港台地区也译为证据医学。其核心思想是医疗决策（即病人的处理，治疗指南和医疗政策的制定等）应在现有的最好的临床研究依据基础上作出，同时也重视结合个人的临床经验。</p>
             <p>循证医学创始人之一David Sackett教授在2000年新版"怎样实践和讲授循证医学"中，再次定义循证医学为"慎重、准确和明智地应用当前所能获得的最好的研究依据，同时结合医生的个人专业技能和多年临床经验，考虑病人的价值和愿望，将三者完美地结合制定出病人的治疗措施"。</p>
@@ -69,5 +57,6 @@
         </div>
     </div>
 </div>
+<%@include file="/WEB-INF/common/saveSnippet.jsp"%>
 </body>
 </html>

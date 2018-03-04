@@ -45,7 +45,7 @@
             <mvc:mapping path="/userProfile/*"/>
             <mvc:mapping path="/knowledge/collect/*"/>
             <mvc:mapping path="/community/*"/>
-            <mvc:mapping path="/management/*"/>
+            <!--<mvc:mapping path="/management/*"/>-->
 
             <bean class="com.wardmate.interceptor.LoginInterceptor"/>
         </mvc:interceptor>

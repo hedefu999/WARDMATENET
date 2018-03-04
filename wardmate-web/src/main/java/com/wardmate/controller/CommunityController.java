@@ -9,7 +9,9 @@ import com.wardmate.model.InstantMessage;
 import com.wardmate.model.User;
 import com.wardmate.serviceInterface.IChatService;
 import com.wardmate.serviceInterface.ICommunityService;
+import com.wardmate.serviceInterface.INoteBookService;
 import com.wardmate.serviceInterface.IUserProfileService;
+import com.wardmate.vo.NoteBookQueryResult;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +35,8 @@ public class CommunityController {
     private IChatService chatService;
     @Autowired
     private IUserProfileService profileService;
+    @Autowired
+    private INoteBookService noteBookService;
 
     @RequestMapping("/index")
     public String gotoIndex(){
@@ -43,6 +47,8 @@ public class CommunityController {
         Integer userId = (Integer)session.getAttribute(WebAppConstant.LOGIN_SESSION_ID);
         //查询用户所加群组、好友，初始化页面
         List<IMGroup> myIMGroups = communityService.getMyIMGroups(userId);
+        NoteBookQueryResult noteBookQueryResult = noteBookService.getNoteBookPage(userId,1);
+        modelMap.put("noteBookQueryResult",noteBookQueryResult);
         modelMap.put("myIMGroups",myIMGroups);
         return "/community/chat";
     }

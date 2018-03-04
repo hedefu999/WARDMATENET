@@ -21,6 +21,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <%--使用jsp标签url栏显示localhost:8080--%>
   <%--<jsp:forward page="/WEB-INF/welcome.jsp"/>--%>
   <%--主页经过springMVC便于国际化等，主页url localhost:8080/index--%>
-  <c:redirect url="/welcome"/>
+  <c:redirect url="/welcome?menuIndex=1"/>
   </body>
 </html>

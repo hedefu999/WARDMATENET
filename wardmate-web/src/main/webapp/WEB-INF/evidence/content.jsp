@@ -13,7 +13,6 @@
     <link rel="stylesheet" href="/assets/awesomefonts/css/font-awesome.min.css">
     <link rel="stylesheet" href="/assets/bootstrap/bootstrap.min.css"/>
     <link rel="stylesheet" href="/assets/bootstrap/treeview/bootstrap-treeview.min.css"/>
-    <link rel="stylesheet" href="/css/common/navbar.css"/>
     <link rel="stylesheet" href="/css/common/rem.css"/>
     <style type="text/css">
         .colorgraph {margin:0;height: 5px;border-top: 0;background: #c4e17f;border-radius: 5px;

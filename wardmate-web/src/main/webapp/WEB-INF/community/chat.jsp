@@ -13,10 +13,9 @@
     <meta http-equiv="Cache" content="no-cache"/>
     <link rel="stylesheet" href="/assets/awesomefonts/css/font-awesome.min.css"/>
     <link rel="stylesheet" href="/assets/bootstrap/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/assets/layui/layui.css"/>
     <link rel="stylesheet" href="/assets/layer/theme/default/layer.css"/>
     <link rel="stylesheet" href="/css/common/rem.css"/>
-    <link rel="stylesheet" href="/css/common/navbar.css"/>
-
     <link rel="stylesheet" href="/css/community/chat.css"/>
 </head>
 <body>
@@ -66,26 +65,20 @@
                     </div>
                     <div class="tab-pane fade rows" id="navnotes">微笔记
                         <div class="panel-group" id="tinynotes">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title">
-                                        <a href="#collapseOne" data-toggle="collapse" data-parent="#tinynotes" aria-expanded="true" class="">微记:DPP-4抑制剂</a>
-                                    </h4>
+                            <div id="notePagination" total="${noteBookQueryResult.totalCount}"></div>
+                            <c:forEach items="${noteBookQueryResult.noteSnippets}" var="snippet" varStatus="index">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a href="#snippet${snippet.id}" data-toggle="collapse" data-parent="#tinynotes" aria-expanded="true" class="">${snippet.title}</a>
+                                        </h4>
+                                    </div>
+                                    <div id="snippet${snippet.id}" class="panel-collapse collapse" aria-expanded="true">
+                                        <div class="panel-body">${snippet.content}</div>
+                                    </div>
                                 </div>
-                                <div id="collapseOne" class="panel-collapse collapse in" aria-expanded="true">
-                                    <div class="panel-body">沙格列汀、西格列汀、维格列汀等，一般与二甲双胍联合使用。</div>
-                                </div>
-                            </div>
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title">
-                                        <a href="#collapseTwo" data-toggle="collapse" data-parent="#tinynotes" class="collapsed" aria-expanded="false">微记：无标题</a>
-                                    </h4>
-                                </div>
-                                <div id="collapseTwo" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
-                                    <div class="panel-body">咖啡中含有咖啡因，咖啡因可以让神经系统兴奋而造成失眠或神经紧张。而且摄取过多的咖啡因，容易发生耳鸣、心脏机能亢进，就是心脏跳动迅速、脉搏次数增加，及脉搏跳动不均，所以必须适量饮用咖啡。建议不要过量喝咖啡。</div>
-                                </div>
-                            </div>
+                            </c:forEach>
+
                         </div>
                         收藏知识列表
                         <div class="list-group" id="favornotes">
@@ -132,8 +125,10 @@
 <script src="/assets/jquery/jquery-3.2.1.min.js" type="text/javascript"></script>
 <script src="/assets/bootstrap/bootstrap.min.js" type="text/javascript"></script>
 <script src="/assets/layer/layer.js" type="text/javascript"></script>
+<script src="/assets/layui/layui.js" type="text/javascript"></script>
 <%--<script src="/assets/sockjs.min.js" type="text/javascript"></script>--%>
 <script src="/javascript/utils/formatdate.js" type="text/javascript"></script>
+
 <script type="text/javascript">
     var websocketServer='ws://'+location.host+'${pageContext.request.contextPath}'+'/instantMessageServer';
     var currentUserId = ${sessionScope.LOGIN_USER_ID};
@@ -209,6 +204,50 @@
             }
         });
     }
+    layui.use('laypage', function() {
+        var laypage = layui.laypage;
+        laypage.render({
+            elem: 'notePagination',
+            count: $('#notePagination').attr('total'),
+            //curr:$('#screenEvidenceForm .pageNo').val(),
+            limit: 5,
+            layout: ['prev', 'page', 'next', 'count'],
+            jump: function (obj, first) {
+                if (!first) {
+                    var pageNo = obj.curr;
+                    $.post('/knowledge/collect/getSnippet',{userId:currentUserId,pageNo:pageNo},function (result) {
+                        $('#notePagination').nextAll().remove();
+                        var snippets = JSON.parse(result);
+                        $.each(snippets,function (index,element) {
+                            var snippet =
+                                '<div class="panel panel-default">' +
+                                    '<div class="panel-heading">' +
+                                        '<a href="#snippet'+element.id+'" data-toggle="collapse" data-parent="#tinynotes" aria-expanded="true" class="">'+element.title+'</a>' +
+                                        '<button class="btn btn-primary deleteBtn" id="'+element.id+'">删除</button>'+
+                                    '</div>' +
+                                    '<div id="snippet'+element.id+'" class="panel-collapse collapse" aria-expanded="true">\n' +
+                                        '<div class="panel-body">'+element.content+'</div>' +
+                                    '</div>' +
+                                '</div>';
+                            $('#notePagination').after(snippet);
+                        });
+                        //添加事件代码不能放在外面
+                        $('#tinynotes .deleteBtn').click(function () {
+                            var _this = this;
+                            //使用nth-child移除元素有诡异的问题
+                            layer.confirm('确定删除这条笔记？', {icon: 3, title:'提示'}, function(index){
+                                //分页在删除内容的情况下必须刷新才能更新按钮和技术，但不会引起bug，只会显示空白
+                                $.get('/knowledge/collect/deleteSnippet',{noteId:$(_this).attr('id')},function () {
+                                    layer.close(index);
+                                    $(_this).parent().parent().remove();
+                                });
+                            });
+                        });
+                    });
+                }
+            }
+        });
+    });
 
 </script>
 <script type="text/javascript" src="/javascript/community/chat_websocket.js"></script>

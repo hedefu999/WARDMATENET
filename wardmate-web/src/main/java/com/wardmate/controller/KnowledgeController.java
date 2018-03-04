@@ -1,8 +1,13 @@
 package com.wardmate.controller;
 
 import com.google.common.collect.Maps;
+import com.wardmate.constant.SimpleHttpMessage;
+import com.wardmate.constant.WebAppConstant;
 import com.wardmate.model.KnowledgeCard;
+import com.wardmate.model.NoteSnippet;
 import com.wardmate.serviceInterface.IKnowledgeService;
+import com.wardmate.serviceInterface.INoteBookService;
+import com.wardmate.vo.FeedbackMessage;
 import com.wardmate.vo.KnowledgeCardQueryConditions;
 import com.wardmate.vo.PageQueryResult;
 import org.apache.logging.log4j.LogManager;
@@ -10,11 +15,9 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 
@@ -26,14 +29,16 @@ public class KnowledgeController {
 
     @Autowired
     private IKnowledgeService knowledgeService;
+    @Autowired
+    private INoteBookService noteBookService;
 
-    @RequestMapping("/index")
+    @RequestMapping(value = "/index",method = RequestMethod.GET)
     public String knowledge(){
         return "forward:/knowledge/aboutEBM";
     }
 
     @RequestMapping("/aboutEBM")
-    public String knowledgeEBM(){
+    public String knowledgeEBM(HttpServletRequest request){
         return "/knowledge/knowledgeEBM";
     }
 
@@ -67,6 +72,26 @@ public class KnowledgeController {
         conditionMap.put("pageSize",pageSize);
         conditionMap.put("keyword",conditions.getKeyword());
         return knowledgeService.queryCardForJson(conditionMap);
+    }
+
+    @ResponseBody
+    @RequestMapping("/collect/snippet")
+    public FeedbackMessage collectSnippets(@RequestBody NoteSnippet noteSnippet){
+        noteBookService.saveUserSelectedText(noteSnippet);
+        return new FeedbackMessage("feedback",SimpleHttpMessage.SNIPPET_SAVED_SUCCESS);
+    }
+
+    @ResponseBody
+    @RequestMapping("/collect/getSnippet")
+    public List<NoteSnippet> getSnippetForAjax(Integer userId,Integer pageNo){
+        return noteBookService.getNoteBookPage(userId, pageNo).getNoteSnippets();
+    }
+
+    @ResponseBody
+    @RequestMapping("/collect/deleteSnippet")
+    public String deleteSnippet(Integer noteId){
+        noteBookService.deleteNoteByNoteId(noteId);
+        return "删除笔记成功";
     }
 
     @ModelAttribute("queryConditions")

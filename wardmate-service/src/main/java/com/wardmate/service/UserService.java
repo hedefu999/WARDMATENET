@@ -22,6 +22,7 @@ public class UserService implements IUserService{
     @Override
     public void registerNewUser(User user) {
         userMapper.registerNewUser(user);
+        //profileMapper.saveNewProfile();初始化群组，否则会空指针异常
     }
 
     @Override
