@@ -26,21 +26,27 @@
         <result column="AVATAR_URL" property="avatarURL"/>
         <result column="WEIXIN_ACCOUNT" property="weixinAccount"/>
     </resultMap>
-    <select id="getUserInformation" parameterType="integer" resultMap="USER_INFORMATION">
+    <select id="getUserInforById" parameterType="integer" resultMap="USER_INFORMATION">
         SELECT up.ID ID, up.USER_ID, ur.NAME, ur.PASSWORD, ur.GENDER, ur.BIRTHDAY, ur.PHONE, ur.EMAIL,
          up.NICK_NAME, up.AVATAR_URL, up.WEIXIN_ACCOUNT
         FROM USER ur JOIN USERPROFILE up
         ON ur.ID = up.USER_ID
         WHERE ur.ID = #{userId};
     </select>
+    <select id="getUserInforByName" parameterType="string" resultMap="USER_INFORMATION">
+        SELECT up.ID ID, up.USER_ID, ur.NAME, ur.PASSWORD, ur.GENDER, ur.BIRTHDAY, ur.PHONE, ur.EMAIL,
+         up.NICK_NAME, up.AVATAR_URL, up.WEIXIN_ACCOUNT
+        FROM USER ur,USERPROFILE up
+        WHERE ur.ID = up.USER_ID AND ur.NAME = #{userId}
+    </select>
     <insert id="saveNewProfile" parameterType="com.wardmate.model.UserProfile"
             useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO USERPROFILE(USER_ID, NICK_NAME, AVATAR_URL, WEIXIN_ACCOUNT)
-        VALUES (#{userId},#{nickName},#{avatarURL},#{weixinAccount});
+        INSERT INTO USERPROFILE(USER_ID, NICK_NAME)
+        VALUES (#{userId},#{nickName});
     </insert>
     <update id="updateByUserId" parameterType="com.wardmate.model.UserProfile">
         UPDATE USERPROFILE
-        SET NICK_NAME=#{nickName},WEIXIN_ACCOUNT=#{weixinAccount}
+        SET NICK_NAME=#{nickName},AVATAR_URL=#{avatarURL},WEIXIN_ACCOUNT=#{weixinAccount}
         WHERE USER_ID=#{userId}
     </update>
     <select id="getGroupIdsByUserId" parameterType="integer" resultType="java.lang.String">

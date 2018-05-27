@@ -57,6 +57,7 @@ public class InstantMessageServer{
         //1.依据用户ID查找加入的群组ID
         //2.在群组ID对应的list中添加在线用户ID
         userGroupMap = chatService.prepareGroupID(userId,userGroupMap);
+        chatService.initWikiKeywords();
         //在onMessage中处理
         //3.检测到type=GROUP && GROUP ID存在，获取对应的userID list
         //4.依据用户路由表，对这些userID list逐个发送消息
@@ -75,20 +76,18 @@ public class InstantMessageServer{
     public void onMessage(String messageString){
         //解析消息并存入数据库
         InstantMessage message = chatService.processChatMessage(messageString);
-        //发送此消息
+        //广播此消息
         sendChatMessage(message);
     }
 
     private void sendChatMessage(InstantMessage messageObject){
         String type = messageObject.getType();
         if(type.equals(MessageType.P2P)){
-            Integer toId = messageObject.getTo();
+            Integer toId = messageObject.getToId();
             //Session session = idSessionRouter.get(toId);
             //session.getBasicRemote().sendText(messageString);
-        }
-        //发送群组消息
-        if (type.equals(MessageType.GROUP)){
-            Integer groupId = messageObject.getTo();
+        }else if (type.equals(MessageType.GROUP)){
+            Integer groupId = messageObject.getToId();
             List<Integer> userIds = userGroupMap.get(groupId);
             String messageToSend = chatService.generateChatMessage(messageObject);
             for(Integer userId : userIds){
@@ -97,7 +96,6 @@ public class InstantMessageServer{
                     session.getBasicRemote().sendText(messageToSend);
                 } catch (IOException e) {
                     e.printStackTrace();
-                    continue;
                 }
             }
         }

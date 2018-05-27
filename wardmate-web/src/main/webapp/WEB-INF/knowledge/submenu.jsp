@@ -15,8 +15,9 @@
                 <%--需要在引用页面导入标签--%>
                 <c:choose>
                     <c:when test="${sessionScope.LOGIN_USER != null}">
-                        <a href="#">
-                            <img class="avatar" src="/image/community/avatar.png">&emsp;${sessionScope.LOGIN_USER_NAME}
+                        <a href="/welcome/gotoUserProfile/${sessionScope.LOGIN_USER_ID}">
+                            <img class="avatar img-circle" src="${sessionScope.LOGIN_USER.avatarURL}">
+                            <span class="userName">${sessionScope.LOGIN_USER_NAME}▼</span>
                         </a>|<a href="/logout" class="logout">登出</a>
                     </c:when>
                     <c:otherwise>

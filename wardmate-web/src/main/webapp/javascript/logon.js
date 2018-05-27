@@ -1,9 +1,3 @@
-/**
- * Created by hedefu on 08/10/2017.
- */
-/**
- * Created by hedefu on 27/09/2017.
- */
 $(function(){
     $('input[data-toggle]').tooltip();
     $('input.form-control.input-lg').after('<i class="form-control-feedback icon-large"></i><div class="help-block with-errors"></div>');

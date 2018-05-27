@@ -30,13 +30,15 @@ public class CommunityService implements ICommunityService {
     public List<IMGroup> getMyIMGroups(Integer userId){
         List<IMGroup> myIMGroups = new ArrayList<>();
         String groupIds = userProfileMapper.getGroupIdsByUserId(userId);
-        //List<String> groupIdList = Splitter.on(',').omitEmptyStrings().splitToList(groupIds);
         List<IMGroup> allIMGroup = imGroupMapper.getIMGroups();
-        allIMGroup.stream().forEach(IMGroup->{
-            if(groupIds.contains(""+IMGroup.getId())){
-                myIMGroups.add(IMGroup);
-            }
-        });
+        //BUG：新注册用户groupIds为空，调用contains出错
+        if(groupIds != null && groupIds != ""){
+            allIMGroup.stream().forEach(IMGroup->{
+                if(groupIds.contains(""+IMGroup.getId())){
+                    myIMGroups.add(IMGroup);
+                }
+            });
+        }
         return myIMGroups;
     }
 }

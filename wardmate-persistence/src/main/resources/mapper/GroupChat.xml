@@ -4,18 +4,31 @@
 <mapper namespace="com.wardmate.mapper.GroupChatMapper">
     <resultMap id="BASE_COLUMN" type="com.wardmate.model.InstantMessage">
         <id column="ID" property="id"/>
-        <result column="FROM_ID" property="from"/>
-        <result column="TO_ID" property="to"/>
+        <result column="FROM_ID" property="fromId"/>
+        <result column="NICK_NAME" property="fromName"/>
+        <result column="AVATAR_URL" property="avatar"/>
+        <result column="TO_ID" property="toId"/>
+        <result column="MESSAGE" property="message"/>
+        <result column="DATETIME" property="dateTime"/>
+    </resultMap>
+    <resultMap id="INSTANT_MESSAGE" type="com.wardmate.model.InstantMessage">
+        <result column="FROM_ID" property="fromId"/>
+        <result column="NICK_NAME" property="fromName"/>
+        <result column="AVATAR_URL" property="avatar"/>
         <result column="MESSAGE" property="message"/>
         <result column="DATETIME" property="dateTime"/>
     </resultMap>
     <insert id="saveGroupChat" parameterType="com.wardmate.model.InstantMessage">
         INSERT INTO GROUPCHAT(FROM_ID,TO_ID,MESSAGE,DATETIME)
-        VALUES(#{from},#{to},#{message},#{dateTime});
+        VALUES(#{fromId},#{toId},#{message},#{dateTime});
     </insert>
-    <select id="getInstantMessageByToId" resultMap="BASE_COLUMN">
-        SELECT * FROM GROUPCHAT WHERE TO_ID = #{toId}
-        ORDER BY DATETIME DESC LIMIT 10 OFFSET #{offset};
+
+    <select id="getInstantMessageByToId" resultMap="INSTANT_MESSAGE">
+        SELECT gc.FROM_ID, up.NICK_NAME, up.AVATAR_URL, up.WEIXIN_ACCOUNT, gc.MESSAGE, gc.DATETIME
+        FROM GROUPCHAT gc LEFT JOIN USERPROFILE up
+        ON gc.FROM_ID = up.USER_ID
+        WHERE TO_ID=#{toId}
+        ORDER BY gc.DATETIME DESC LIMIT 10 OFFSET #{offset};
     </select>
 
 </mapper>

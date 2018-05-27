@@ -14,4 +14,5 @@ public interface IChatService {
 
     List<Integer> getSameGroupUserIds(Integer groupId,Map<Integer,ArrayList<Integer>> userGroupMap);
     List<InstantMessage> getChatHistoryByToId(Integer toId,String type,Integer pageNo);
+    void initWikiKeywords();
 }

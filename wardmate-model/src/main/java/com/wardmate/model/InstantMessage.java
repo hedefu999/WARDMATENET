@@ -4,8 +4,10 @@ import java.io.Serializable;
 
 public class InstantMessage implements Serializable{
     private Integer id;
-    private Integer from;
-    private Integer to;
+    private Integer fromId;
+    private String fromName;
+    private String avatar;
+    private Integer toId;
     private String message;
     private String type;
     private String dateTime;
@@ -18,20 +20,36 @@ public class InstantMessage implements Serializable{
         this.id = id;
     }
 
-    public Integer getFrom() {
-        return from;
+    public Integer getFromId() {
+        return fromId;
     }
 
-    public void setFrom(Integer from) {
-        this.from = from;
+    public void setFromId(Integer fromId) {
+        this.fromId = fromId;
     }
 
-    public Integer getTo() {
-        return to;
+    public String getFromName() {
+        return fromName;
     }
 
-    public void setTo(Integer to) {
-        this.to = to;
+    public void setFromName(String fromName) {
+        this.fromName = fromName;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public Integer getToId() {
+        return toId;
+    }
+
+    public void setToId(Integer toId) {
+        this.toId = toId;
     }
 
     public String getMessage() {
@@ -62,8 +80,10 @@ public class InstantMessage implements Serializable{
     public String toString() {
         return "InstantMessage{" +
                 "id=" + id +
-                ", from=" + from +
-                ", to=" + to +
+                ", fromId=" + fromId +
+                ", fromName='" + fromName + '\'' +
+                ", avatar='" + avatar + '\'' +
+                ", toId=" + toId +
                 ", message='" + message + '\'' +
                 ", type='" + type + '\'' +
                 ", dateTime='" + dateTime + '\'' +

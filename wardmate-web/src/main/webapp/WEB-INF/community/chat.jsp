@@ -4,6 +4,7 @@
 <html lang="zh">
 <head>
     <title>病友社区</title>
+    <%@include file="../common/basepath.jsp"%>
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -40,7 +41,7 @@
                         <div class="list-group">
                             <!-- 这里存放群组列表 -->
                             <c:forEach items="${myIMGroups}" varStatus="index" var="IMGroup">
-                                <a href="#" class="list-group-item" recipientId="${IMGroup.id}" messageType="GROUP"><div>
+                                <a class="list-group-item" recipientId="${IMGroup.id}" messageType="GROUP"><div>
                                     <img src="${IMGroup.avatarURL}" class="img-rounded"><h4>${IMGroup.name}</h4><div class="middle"></div><span class="badge">0</span><span class="last">2017-02-13</span>
                                 </div></a>
                             </c:forEach>
@@ -52,13 +53,13 @@
                             <span class="input-group-btn"><button class="btn btn-primary"><i class="fa fa-search" aria-hidden="true"></i></button></span>
                         </div>
                         <div class="list-group">
-                            <a href="#" class="list-group-item"><div>
+                            <a class="list-group-item"><div>
                                 <img src="/image/community/avatar04.jpg" class="img-rounded"><h4>小明</h4><div class="middle">小明：你好，这个药你服用了几个疗程？</div><span class="badge">1</span><span class="last">刚刚</span>
                             </div></a>
-                            <a href="#" class="list-group-item"><div>
+                            <a class="list-group-item"><div>
                                 <img src="/image/community/avatar05.jpg" class="img-rounded"><h4>大刘</h4><div class="middle">我：在吗？</div><span class="badge">2</span><span class="last">昨天</span>
                             </div></a>
-                            <a href="#" class="list-group-item"><div>
+                            <a class="list-group-item"><div>
                                 <img src="/image/community/avatar07.jpg" class="img-rounded"><h4>李老</h4><div class="middle">李老：这个帖子里提的药有相关证据吗？</div><span class="last">2017-02-13</span>
                             </div></a>
                         </div>
@@ -83,7 +84,7 @@
                         收藏知识列表
                         <div class="list-group" id="favornotes">
                             <!-- 这里存放群组列表 -->
-                            <a href="#" class="list-group-item"><div>
+                            <a class="list-group-item"><div>
                                 <img src="/image/community/avatar07.jpg" class="img-rounded"><span><h4>如何加强与医生沟通</h4>收藏自用户：管理员</span><span class="last">2017-02-13</span>
                             </div></a>
                         </div>
@@ -94,11 +95,11 @@
                 <div id="chatpane" recipientId="1" messageType="GROUP">
                     <div id="chatpanetitle">
                         <h4 class="name"></h4>
-                        <a href="#" data-toggle="tooltip" title="关闭聊天窗口" class="btn btn-danger closechatpane"><i class="fa fa-remove" aria-hidden="true"></i></a>
+                        <a data-toggle="tooltip" title="关闭聊天窗口" class="btn btn-danger closechatpane"><i class="fa fa-remove" aria-hidden="true"></i></a>
                         <button class="btn btn-info showInfo">显示在线用户</button>
                     </div>
                     <div id="chatpanebody">
-                        <div class="showMoreHistory" style="text-align: center;"><a href="#" pageNo="1">显示更多历史消息</a></div>
+                        <div class="showMoreHistory" style="text-align: center;"><a pageNo="1">显示更多历史消息</a></div>
                         <div class="messageContainer"></div>
                         <%--<div class="date">以上是历史消息</div>--%>
                     </div>
@@ -128,6 +129,7 @@
 <script src="/assets/layui/layui.js" type="text/javascript"></script>
 <%--<script src="/assets/sockjs.min.js" type="text/javascript"></script>--%>
 <script src="/javascript/utils/formatdate.js" type="text/javascript"></script>
+<script src="/javascript/utils/hoverDelay.js" type="text/javascript"></script>
 
 <script type="text/javascript">
     var websocketServer='ws://'+location.host+'${pageContext.request.contextPath}'+'/instantMessageServer';
@@ -138,9 +140,8 @@
         currentRecipientId = $(this).attr('recipientId');
         currentMessageType = $(this).attr('messageType');
         //初始化聊天窗口，填充属性,清除内容
-        $('#chatpane').attr('recipientId',currentRecipientId);
-        $('#chatpane').attr('messageType',currentMessageType);
-        $('#chatpanetitle h4').html('<i class="fa fa-users">&emsp;</i>'+$(this).find('h4').html());
+        $('#chatpane').attr('recipientId',currentRecipientId).attr('messageType',currentMessageType);
+        $('#chatpanetitle .name').html('<i class="fa fa-users">&emsp;</i>'+$(this).find('h4').html());
         $('#chatpanebody .messageContainer').html('');
         //展示历史消息
         loadHistoryMessage(1);
@@ -161,19 +162,19 @@
     }
     function generateMessageHtml(message,currentUserId) {
         var messageHtml;
-        if(currentUserId == message.from){ //自己发送的消息
+        if(currentUserId == message.fromId){ //自己发送的消息
             messageHtml =
                 '<div class="me"><table border="0">\n' +
-                '    <tr><td colspan="2" style="text-align: right;padding-right: 1rem;">用户ID:'+message.from+'</td>' +
-                '        <td rowspan="2"><img class="avatar img-circle" src="/image/community/avatar07.jpg" alt="..."></td></tr>' +
+                '    <tr><td colspan="2" style="text-align: right;padding-right: 1rem;">'+message.fromName+'</td>' +
+                '        <td rowspan="2"><img class="avatar img-circle" src="'+message.avatar+'" alt="..."></td></tr>' +
                 '    <tr><td><div class="rmessage">'+message.message+'</div></td>' +
                 '        <td><div class="rightarrow"></div></td></tr>' +
                 '</table></div>';
         }else {
             messageHtml =
                 '<div class="others"><table border="0">' +
-                '    <tr><td rowspan="2"><img class="avatar img-circle" src="/image/community/avatar05.jpg" alt="..."></td>' +
-                '        <td colspan="2" style="text-align: left;padding-left: 1rem;">用户ID:'+message.from+'</td></tr>' +
+                '    <tr><td rowspan="2"><img class="avatar img-circle" src="'+message.avatar+'" alt="..."></td>' +
+                '        <td colspan="2" style="text-align: left;padding-left: 1rem;">'+message.fromName+'</td></tr>' +
                 '    <tr><td><div class="leftarrow"></div></td>' +
                 '        <td><div class="lmessage">'+message.message+'</div></td></tr>' +
                 '</table></div>';
@@ -204,6 +205,53 @@
             }
         });
     }
+    var wikiProperties = {
+        url:'ajax请求链接',
+        layerType:1,
+        brief:'true'
+    };
+    var urlDisease = '/management/getDiseaseInstruction/';
+    var urlMedicine = '/management/getMedicineInstruction/';
+    $('#chatpanebody .messageContainer').on('click','.wikiKeyword',function () {
+        var _this = this;
+        wikiProperties.brief='false';
+        $(this).hasClass('disease')?wikiProperties.url = urlDisease+wikiProperties.brief:wikiProperties.url = urlMedicine+wikiProperties.brief;
+        $.ajax({
+            url:wikiProperties.url,
+            type:'post',
+            data:{name:$(_this).html()},
+            success:function (result) {
+                result.indexOf('http')!=-1?wikiProperties.layerType=2:wikiProperties.layerType=1;
+                layer.open({
+                    type:wikiProperties.layerType,
+                    shade:0.8,
+                    shadeClose: true,
+                    title: $(_this).html(),
+                    area: ['100rem', '60rem'],
+                    content: result
+                });
+            }
+        });
+    });
+    $('#chatpanebody .messageContainer').on('mouseover','.wikiKeyword',function () {
+        //此处的this是子元素wikiKeyword,很方便
+        if ($(this).attr('title') == null){
+            var _this = this;
+            wikiProperties.brief='true';
+            $(this).hasClass('disease')?wikiProperties.url = urlDisease+wikiProperties.brief:wikiProperties.url = urlMedicine+wikiProperties.brief;
+            $.ajax({
+                url:wikiProperties.url,
+                type:'post',
+                data:{name:$(_this).html()},
+                success:function (result) {
+                    //bootstrap的tooltip自带延迟功能，使用js插件hoverDelay会导致重复绑定事件
+                    var tooltipOptions = {delay: { show: 800, hide: 500 },html:true};
+                    $(_this).attr('title',result).attr('data-placement','top').attr('data-toggle','tooltip').tooltip(tooltipOptions).tooltip('toggle');
+                }
+            });
+        }
+    });
+
     layui.use('laypage', function() {
         var laypage = layui.laypage;
         laypage.render({
