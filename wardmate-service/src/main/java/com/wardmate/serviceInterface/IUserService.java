@@ -5,7 +5,7 @@ import com.wardmate.model.User;
 
 public interface IUserService {
     void registerNewUser(User user);
-    User getUserByName(String userName);
+    UserAndProfile getFullUserByName(String userName);
     UserAndProfile getUserProfileAndSettings(Integer userId);
 
     boolean prepareUserProfile(Integer userId);

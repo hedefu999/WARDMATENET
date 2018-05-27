@@ -1,7 +1,30 @@
-#vicemenu{background:rgba(0,128,128,0.4);}
-#vicemenu .btn{margin: 0.8rem 0;padding:0.5rem;}
-#vicemenu .btn-primary{background-color: rgba(0,136,204,0.5);}
-#vicemenu .btn-default{background-color: rgba(255,255,255,0.5);}
-#vicemenu .col{text-align: right;position: relative;padding: 0;text-align: center;}
-#vicemenu .userentrance{margin-right: 2rem;}
-#vicemenu .avatar{margin-right: 1rem;}
+#leftColumn .chartTitleLink{float: right;color: #428bca;}
+#leftColumn .healthCard{padding: 1rem;}
+#leftColumn .healStatus{height: 15rem;}
+#leftColumn .healStatus{border: 2px solid #ddd;border-top-right-radius: 12rem;border-bottom-right-radius: 12rem;box-shadow: 2px 2px 2px #ccc;}
+#leftColumn .healStatus .healBook{padding-top: 2rem;}
+#leftColumn .healStatus .puppet{padding: 0;}
+#leftColumn .puppet .description{padding-top: 2rem;}
+#leftColumn .healStatus .puppet img{margin-top: 2rem;}
+#leftColumn .title{text-align: center;width: 100%;color: #ffaeae;}
+
+#leftColumn .timeMachine{padding: 0 1rem;}
+#leftColumn .timeMachine .timeCapsule{position:relative;border: 2px solid #ddd;border-radius: 1rem;height: 23rem;padding: 1rem;box-shadow: 2px 2px 2px #ccc;}
+#leftColumn .timeCapsule .timeLineTitle{position: absolute;top: 8rem;font-size: 2rem;color: #f1ad4e;}
+#leftColumn .timeCapsule .input-group{margin-bottom: 1rem;}
+#leftColumn .timeCapsule .timeThread{    background: #428bca50;width: 0.3rem;height: 100%;position: absolute;top: 0;left: 9rem;}
+#leftColumn .timeMachine .timeLine{height: 20rem;overflow: scroll;border-right: 1px solid #ddd;}
+#leftColumn .timeMachine .timeCapsule .recordCard a{cursor: pointer;}
+
+#leftColumn .timeLine p{text-align: center;margin: 2rem 0;}
+#leftColumn .timeLine p a{border: 1px solid;padding: 0.5rem;cursor: pointer;background: #428bca30;}
+
+
+#rightColumn{padding: 0;}
+#rightColumn a{padding-top: 0;}
+#rightColumn img{max-height:50px;max-height:50px;float:left;margin-right: 1rem;}
+#rightColumn .rightCorner{float:right;margin-top:-100px;}
+#rightColumn .middle{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+#rightColumn .last{float:right;margin-top:-20px;}
+
+/*#canvas {display: block; width: 90rem; height: 50rem;}*/

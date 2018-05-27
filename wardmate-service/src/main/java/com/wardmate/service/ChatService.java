@@ -7,31 +7,41 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Splitter;
 import com.wardmate.constant.MessageType;
 import com.wardmate.constant.WebAppConstant;
-import com.wardmate.mapper.GroupChatMapper;
-import com.wardmate.mapper.P2PChatMapper;
-import com.wardmate.mapper.UserProfileMapper;
+import com.wardmate.mapper.*;
 import com.wardmate.model.InstantMessage;
 import com.wardmate.serviceInterface.IChatService;
+import com.wardmate.vo.UserInfo4GroupChat;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class ChatService implements IChatService {
     private Logger logger = LogManager.getLogger();
     private static ObjectMapper mapper = new ObjectMapper();//jackson 使用 databinding方式解析JSON
+    List<String> diseases = new ArrayList<>();
+    List<String> medicines = new ArrayList<>();
     @Autowired
     private GroupChatMapper groupChatMapper;
     @Autowired
     private P2PChatMapper p2PChatMapper;
     @Autowired
     private UserProfileMapper userProfileMapper;
+    @Autowired
+    private DiseaseMapper diseaseMapper;
+    @Autowired
+    private MedicineMapper medicineMapper;
+
+    public void initWikiKeywords(){
+        if (diseases.size()==0 || medicines.size() == 0){
+            diseases = diseaseMapper.getAllDiseaseName();
+            medicines = medicineMapper.getAllMedicineName();
+        }
+    }
 
     @Override
     public Map<Integer, ArrayList<Integer>> prepareGroupID(Integer userId, Map<Integer, ArrayList<Integer>> userGroupMap) {
@@ -41,7 +51,6 @@ public class ChatService implements IChatService {
             return userGroupMap;
         }
         List<String> groupIds = Splitter.on(',').omitEmptyStrings().splitToList(groupIdsString);
-        logger.info("userId = "+userId+" , grouIds = "+groupIds);
         if(groupIds != null && groupIds.size() != 0){
             for(String groupIdString : groupIds){
                 Integer groupId = Integer.parseInt(groupIdString);
@@ -84,11 +93,30 @@ public class ChatService implements IChatService {
         mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
         try {
             messageObject = mapper.readValue(messageString,InstantMessage.class);
-            System.out.println("收到消息： "+messageObject);
         } catch (IOException e) {
             e.printStackTrace();
         }
         if (messageObject != null){
+            //附加功能：识别聊天关键词：疾病与药物，加格式
+            if (diseases.size()==0 || medicines.size() == 0){
+                logger.info("关键词列表未能正确初始化！");
+                initWikiKeywords();
+            }
+            String message = messageObject.getMessage();
+            for (String disease:diseases){
+                if (message.contains(disease)){
+                    message = message.replaceAll(disease,
+                            "<span class=\"wikiKeyword disease\">"+disease+"</span>");
+                    //onclick=\"showWikiPane(this)\" onmouseover=\"showWikiHover(this)\"
+                }
+            }
+            for (String medicine:medicines){
+                if (message.contains(medicine)){
+                    message = message.replaceAll(medicine,
+                            "<span class=\"wikiKeyword medicine\">"+medicine+"</span>");
+                }
+            }
+            messageObject.setMessage(message);
             //2.保存消息对象
             String type = messageObject.getType();
             if(type.equals(MessageType.GROUP)){
@@ -145,8 +173,8 @@ public class ChatService implements IChatService {
 
     public String generateGroupNotification(){
         InstantMessage instantMessage = new InstantMessage();
-        instantMessage.setFrom(0);
-        instantMessage.setTo(11);
+        instantMessage.setFromId(0);
+        instantMessage.setToId(11);
         instantMessage.setMessage("");
         instantMessage.setType("");
         //mapper.configure(SerializationFeature.INDENT_OUTPUT, true);格式化JSON使之易读

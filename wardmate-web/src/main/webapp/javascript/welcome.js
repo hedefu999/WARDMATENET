@@ -33,7 +33,12 @@ $(function(){
         });
     });
 
+
 });
+
+function testTooltip(item){
+    $(item).addClass('tooltip-toggle').attr('title','many things').attr('data-placement','top').attr('data-toggle','tooltip').tooltip({html : true }).tooltip('toggle');
+}
 var initcontent = function(imgheight){
 	imgheight = $('#index_banner .bannerimg').height();
 	$('#index_banner .bannerscreen').css("height",imgheight);

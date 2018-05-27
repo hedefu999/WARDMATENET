@@ -12,12 +12,11 @@
         <div class="col-xs-0 col-sm-4 col-md-4 col">
             <div class="userentrance">
                 <%--社区模块由拦截器验证是否登录，此处不必判断--%>
-                <a href="#" userId="${sessionScope.LOGIN_USER_ID}">
-                    <img class="avatar" src="/image/community/avatar.png">
-                    <span class="userName">${sessionScope.LOGIN_USER_NAME}</span>
-                </a>|
-                <a href="/logout" class="logout">登出</a>|
-                <a href="#">&emsp;<i class="fa fa-vcard-o" aria-hidden="true">&nbsp;账户设置</i> </a>
+                <a href="/welcome/gotoUserProfile/${sessionScope.LOGIN_USER_ID}" userId="${sessionScope.LOGIN_USER_ID}">
+                    <img class="avatar img-circle" src="${sessionScope.LOGIN_USER.avatarURL}">
+                    <span class="userName">${sessionScope.LOGIN_USER_NAME}▼</span>
+                </a>|<a href="/logout" class="logout">登出</a>
+                    <%--<i class="fa fa-vcard-o" aria-hidden="true"></i>--%>
             </div>
         </div>
     </div>

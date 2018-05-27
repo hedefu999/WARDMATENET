@@ -12,6 +12,7 @@ import com.wardmate.utils.ValidationCode;
 import com.wardmate.utils.ValidationImage;
 import com.wardmate.utils.MD5;
 import com.wardmate.vo.FeedbackMessage;
+import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,13 +65,13 @@ public class IndexController {
                                        ModelMap modelMap, HttpSession session, User userToLogin){
         //使用@ModelAttribute("preparedUser") User preparedUser 不能从model中获取名为preparedUser的Object
         // 会被表单提交数据填充导致 userToLogin === preparedUser 之前能正常工作的...
-        User preparedUser = (User) modelMap.get("preparedUser");
+        UserAndProfile preparedUser = (UserAndProfile) modelMap.get("preparedUser");
         if(validationCode != null && validationCode.equals(session.getAttribute(WebAppConstant.VALIDATION_CODE))){
             if (preparedUser != null &&
                     userToLogin.getPassword().equals(preparedUser.getPassword())){
                 //登录成功，session存入用户信息，返回登录前的页面
-                session.setAttribute(WebAppConstant.LOGIN_SESSION_HEAD,preparedUser.getName());
-                session.setAttribute(WebAppConstant.LOGIN_SESSION_ID,preparedUser.getId());
+                session.setAttribute(WebAppConstant.LOGIN_SESSION_HEAD,preparedUser.getNickName());
+                session.setAttribute(WebAppConstant.LOGIN_SESSION_ID,preparedUser.getUserId());
                 session.setAttribute(WebAppConstant.LOGIN_SESSION_BODY,preparedUser);
                 String lastURL = (String) session.getAttribute(WebAppConstant.URL_INTERCEPTED);
                 if(lastURL == null || lastURL.equals("")) lastURL="/welcome?menuIndex=1";
@@ -142,14 +143,14 @@ public class IndexController {
     }
 
     @ModelAttribute(value = "preparedUser")
-    public User prepareUser(@RequestParam(name = "name", required = false) String userName){
-        User preparedUser = new User();
+    public UserAndProfile prepareUser(@RequestParam(name = "name", required = false) String userName){
+        UserAndProfile preparedUser = new UserAndProfile();
         if ( userName != null && !userName.equals("")){
             //注册时此处user为null，但不影响注册方法获取POST提交的user属性
             //@ModelAttribute在其他controller方法前执行，此处用于根据request中包含的参数name补全User对象的属性
-            User user = userService.getUserByName(userName);
-            if(user != null){
-                preparedUser = user;
+            UserAndProfile fullUser = userService.getFullUserByName(userName);
+            if(fullUser != null){
+                preparedUser = fullUser;
             }
         }
         return preparedUser;

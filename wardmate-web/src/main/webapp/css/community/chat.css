@@ -9,11 +9,11 @@
 #navgroup .middle{width:12em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 #navgroup .last{float: right;}
 
-#navfriends a{padding-top: 0;}
-#navfriends img{max-height:50px;max-height:50px;float:left;margin-right: 1rem;}
-#navfriends .badge{float:right;margin-top:-50px;}
-#navfriends .middle{width:12em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-#navfriends .last{float:right;margin-top:-20px;}
+#rightColumn a{padding-top: 0;}
+#rightColumn img{max-height:50px;max-height:50px;float:left;margin-right: 1rem;}
+#rightColumn .badge{float:right;margin-top:-50px;}
+#rightColumn .middle{width:12em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+#rightColumn .last{float:right;margin-top:-20px;}
 
 #favornotes a{padding-top: 0;}
 #favornotes img{float: left;margin-right: 1rem;}
@@ -33,6 +33,16 @@
 #chatpanebody .leftarrow{width:0;height:0;font-size:0;border:solid 10px;border-color:#fff #c4e17f #fff #fff;}
 #chatpanebody .rightarrow{width:0;height:0;font-size:0;border:solid 10px;border-color:#fff #fff #fff #ddd;}
 #chatpanebody .date{clear: both;background: #eee;border-radius: 1rem;margin:0 auto;padding:2px 10px;width: 14rem;text-align: center;}
+
+#chatpanebody .messageContainer .disease{color: #428aca;cursor: pointer;}
+#chatpanebody .messageContainer .medicine{color: #f1ad4e;;cursor: pointer;}
+
+/*自定义弹出的tooltip的样式*/
+.tooltip-inner{max-width:60rem;width:40rem;color: #000;font-size: 1.8rem;background-color: #5cb85c;}
+.tooltip.top .tooltip-arrow{border-top-color: #5cb85c;}
+.tooltip.right .tooltip-arrow{border-right-color: #5cb85c;}
+.tooltip.bottom .tooltip-arrow{border-bottom-color: #5cb85c;}
+.tooltip.left .tooltip-arrow{border-left-color: #5cb85c;}
 
 #chatpaneinput{padding: 0.5rem 2rem;border:1px solid #ccc;border-radius: 0 0 4px 4px;}
 #chatpaneinput .toolbox button{float: left;margin: 0.5rem 0.5rem;}

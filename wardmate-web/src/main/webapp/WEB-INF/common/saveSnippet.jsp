@@ -17,12 +17,13 @@
 <%--在网页中自定义右键菜单，使用了bootstrap menu,同类的还有jquery-contextMenu--%>
 <script type="text/javascript" src="/assets/bootstrap/bootstrapmenu.min.js"></script>
 <script type="text/javascript">
-    //目标页面只需要在内容div添加 class="knowledge" 和%@include file="/WEB-INF/common/saveSnippet.jsp"%> 两项操作便可以添加保存笔记功能
+    //目标页面只需要在顶级div添加 class="knowledge" 和%@include file="/WEB-INF/common/saveSnippet.jsp"%> 两项操作便可以添加保存笔记功能
 
     //验证用户是否登录
     //缺少引号在获取值为空时会引起javascript编译错误
     var userId = '${sessionScope.LOGIN_USER_ID}';
     if (userId != null && userId != ''){
+        //右键菜单演示文档：http://dgoguerra.github.io/bootstrap-menu/demos.html
         new BootstrapMenu('.knowledge',{
             actions:[{
                 name:'保存到笔记',

@@ -2,6 +2,7 @@
 <%@ page contentType="text/html;charset=utf-8" language="java" %>
 <html>
 <head>
+    <%@include file="common/basepath.jsp"%>
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -17,9 +18,10 @@
     <!--<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">-->
 </head>
 <body>
+
 <%@include file="common/navbar.jsp"%>
 <div id="index_banner">
-    <img class="img-responsive bannerimg" src="/image/welcome/tempbanner.png" alt="医生" >
+    <img class="img-responsive bannerimg" src="/image/welcome/indexbanner.png" alt="医生" >
     <div class="bannerscreen"></div>
     <div class="bannerinstru container">
         <div class="row">
@@ -33,7 +35,7 @@
                 <c:set var="LOGIN_USER_NAME" scope="session" value="${sessionScope.LOGIN_USER_NAME}"/>
                 <c:choose>
                     <c:when test="${LOGIN_USER_NAME != null}">
-                        <h3>您好！&emsp;<a href="/welcome/gotoUserProfile/${sessionScope.LOGIN_USER.id}">${LOGIN_USER_NAME}</a>&emsp;<small><a href="/logout" class="logout">登出</a></small></h3>
+                        <h3>您好！&emsp;<a href="/welcome/gotoUserProfile/${sessionScope.LOGIN_USER_ID}">${LOGIN_USER_NAME}</a>&emsp;<small><a href="/logout" class="logout">登出</a></small></h3>
                     </c:when>
                     <c:when test="${LOGIN_USER_NAME == null}">
                         <a href="/logon">注册</a>&emsp;&emsp;

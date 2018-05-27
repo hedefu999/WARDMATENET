@@ -21,7 +21,6 @@
     <link rel="stylesheet" href="/assets/awesomefonts/css/font-awesome.min.css">
     <link rel="stylesheet" href="/assets/bootstrap/bootstrap.min.css"/>
     <link rel="stylesheet" href="/css/common/rem.css"/>
-    <link rel="stylesheet" href="/css/common/navbar.css"/>
     <style>
         .colorgraph {margin:0;height: 5px;border-top: 0;background: #c4e17f;border-radius: 5px;
             background-image: -webkit-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
@@ -74,7 +73,6 @@
     <input type="text" name="criteria" placeholder="使用trip数据库" style="width:400px" />
     <input type="submit" value="搜索"/>
 </form>
-
 <script src="/assets/jquery/jquery-3.2.1.min.js" type="text/javascript"></script>
 <script src="/assets/bootstrap/bootstrap.min.js" type="text/javascript"></script>
 <script>

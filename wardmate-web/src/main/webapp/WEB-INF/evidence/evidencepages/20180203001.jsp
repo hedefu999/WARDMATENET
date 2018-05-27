@@ -12,7 +12,7 @@
         </div>
     </div>
     <div class="col col-xs-9">
-        <div class="content">
+        <div class="content knowledge">
             这是一个证据内容显示页面的模板！
             <h2 id="a">2型糖尿病临床实践指南</h2>
             <h3 id="aa">序</h3>
@@ -130,6 +130,7 @@
         </div>
     </div>
 </div>
+<%@include file="/WEB-INF/common/saveSnippet.jsp"%>
 <script src="/assets/jquery/jquery-3.2.1.min.js" type="text/javascript"></script>
 <script>
     //treeview of contents,evidence articles,namely.

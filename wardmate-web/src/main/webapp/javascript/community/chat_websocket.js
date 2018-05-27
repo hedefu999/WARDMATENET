@@ -11,8 +11,10 @@ $('#chatpaneinput .sendMessage').click(function () {
     var messageContent = $('#chatpaneinput textarea').val();
     if(messageContent != ''){
         var message = {
-            from:currentUserId,
-            to:$('#chatpane').attr('recipientId'),
+            fromId:currentUserId,
+            fromName:$('.userentrance .userName').html(),
+            avatar:$('.userentrance .avatar').attr('src'),
+            toId:$('#chatpane').attr('recipientId'),
             message:messageContent,
             type:$('#chatpane').attr('messageType'),
             dateTime:new Date().format('yyyy-MM-dd HH:mm:ss')
@@ -60,7 +62,7 @@ function parseMessage(message) {
 
     }
     if(message.type == 'GROUP'){
-        if(message.to == currentRecipientId){
+        if(message.toId == currentRecipientId){
             $('#chatpanebody .messageContainer').append(generateMessageHtml(message,currentUserId));
             scrollChatPaneBodyToBottom();
         }else {

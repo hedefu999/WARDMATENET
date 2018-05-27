@@ -22,18 +22,22 @@ public class UserService implements IUserService{
     @Override
     public void registerNewUser(User user) {
         userMapper.registerNewUser(user);
-        //profileMapper.saveNewProfile();初始化群组，否则会空指针异常
+        UserProfile userProfile = new UserProfile();
+        userProfile.setUserId(user.getId());
+        userProfile.setNickName(user.getName());
+        //新注册用户应同步插入profile数据，否则无法加群
+        profileMapper.saveNewProfile(userProfile);
     }
 
     @Override
-    public User getUserByName(String userName) {
-        return userMapper.getUserByName(userName);
+    public UserAndProfile getFullUserByName(String userName) {
+        return profileMapper.getUserInforByName(userName);
     }
 
     @Override
     public UserAndProfile getUserProfileAndSettings(Integer userId) {
         //未来会整合其他设置信息、权限等
-        return profileMapper.getUserInformation(userId);
+        return profileMapper.getUserInforById(userId);
     }
 
     @Override

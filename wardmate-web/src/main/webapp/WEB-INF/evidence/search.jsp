@@ -82,7 +82,7 @@
         </form:form>
         </div>
     </div>
-    <div class="col-xs-12 col-sm-9 col-md-9 evidenceList">
+    <div class="col-xs-12 col-sm-9 col-md-9 evidenceList knowledge">
         <div id="pageButtonTop" total="${queryResult.totalResultCount}"></div>
         <c:forEach items="${queryResult.evidences}" var="evidence">
             <div class="itemborder ${evidence.className}border">
@@ -98,7 +98,7 @@
         <div id="pageButtonBottom" total="${queryResult.totalResultCount}"></div>
     </div>
 </div>
-<script src="/assets/jquery/jquery-3.2.1.min.js" type="text/javascript"></script>
+<%@include file="/WEB-INF/common/saveSnippet.jsp"%>
 <script type="text/javascript" src="/assets/icheck/icheck.min.js"></script>
 <script type="text/javascript" src="/javascript/utils/formatdate.js"></script>
 <script type="text/javascript" src="/assets/layui/layui.js"></script>
